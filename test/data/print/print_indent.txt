@@ -1,0 +1,15 @@
+     This is a very
+     long test
+     sentence, that
+     should be
+     indented by 5
+     spaces and
+     split at most
+     every 20
+     characters but
+     when possible
+     only in
+     between words
+     and terminate
+     with a newline
+     character.

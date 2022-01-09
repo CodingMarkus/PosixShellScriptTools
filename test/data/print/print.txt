@@ -1,0 +1,13 @@
+This is a very
+long test
+sentence, that
+should be
+split at most
+every 15
+characters but
+when possible
+only in
+between words
+and terminate
+with a newline
+character.
