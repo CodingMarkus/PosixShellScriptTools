@@ -15,7 +15,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc_"
 
 ##
 # FUNCTION
-# 	on_exit_psst <codeToEval>
+# 	onexit_psst <codeToEval>
 #
 # SUMMARY
 # 	Register code to be executed when process or subprocess exists.
@@ -26,7 +26,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc_"
 # SAMPLE
 # 	on_exit_psst "rm -rf /tmp/someTempFile.tmp"
 #
-on_exit_psst ( )
+onexit_psst ( )
 {
     # We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
@@ -41,7 +41,7 @@ on_exit_psst ( )
         if [ -n "$_oldexit_psst" ]
             then
             # shellcheck disable=SC2064
-            trap "eval $_oldexit_psst ; __run_on_exit_psst" EXIT
+            trap "eval $_oldexit_psst ; __onexit_run_psst" EXIT
         else
             # shellcheck disable=SC2064
             trap "$1" EXIT
@@ -54,12 +54,12 @@ on_exit_psst ( )
 
 ##
 # FUNCTION
-# 	_run_on_exit_psst_
+# 	__onexit_run_psst
 #
 # SUMMARY
 # 	Performs all registered on exit handlers.
 #
-__run_on_exit_psst ( )
+__onexit_run_psst ( )
 {
 
     # We cannot use a sub shell for this function as we need to register the
