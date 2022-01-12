@@ -24,14 +24,18 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc_"
 #
 on_exit_psst ( )
 {
-	oldtraps=$(trap)
-    oldexit=$(echo "$oldtraps" \
+    # We cannot use a sub shell for this function as we need to register the
+	# variables in the main shell. Thus we need to be careful to not conflict
+	# when defining local variables.
+
+	_oldtraps_psst=$(trap)
+    _oldexit_psst=$(echo "$_oldtraps_psst" \
         | grep "EXIT$" \
         | sed -E 's/^trap -- (.*) EXIT$/\1/')
-    if [ -n "$oldexit" ]
+    if [ -n "$_oldexit_psst" ]
     then
         # shellcheck disable=SC2064
-        trap "eval $oldexit ; $1" EXIT
+        trap "eval $_oldexit_psst ; $1" EXIT
     else
         # shellcheck disable=SC2064
         trap "$1" EXIT

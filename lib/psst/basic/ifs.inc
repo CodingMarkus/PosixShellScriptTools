@@ -9,11 +9,9 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc_"
 
 
-# shellcheck source=globals.inc
+# shellcheck source=stack.inc
 . "$INCLUDE_PSST/basic/stack.inc"
 
-
-IFS_STACK_NAME_PSST="ifs_stack_psst"
 
 
 ##
@@ -35,14 +33,14 @@ IFS_STACK_NAME_PSST="ifs_stack_psst"
 #
 set_ifs_psst ( )
 {
-	newIFSValue_psst="$1"
+	_newIFSValue_psst="$1"
 
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	stack_push_psst "$IFS" "$IFS_STACK_NAME_PSST" || return 1
-	IFS="$newIFSValue_psst"
+	stack_push_psst "$IFS" "ifsStack_psst" || return 1
+	IFS="$_newIFSValue_psst"
 
 	unset newIFSValue_psst
 }
@@ -67,7 +65,8 @@ restore_ifs_psst ( )
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	if ! stack_pop_psst "$IFS_STACK_NAME_PSST" "IFS"; then
+	if ! stack_pop_psst "ifsStack_psst" IFS
+	then
 		unset IFS
 	fi
 }

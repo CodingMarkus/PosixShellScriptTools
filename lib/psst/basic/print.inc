@@ -39,14 +39,11 @@ print_psst ( )
 	IFS=""
 	string="$*"
 
-	lines=$( printf "%s\n" "$string" | fold -w "$TERMINAL_WIDTH_PSST" -s )
-
-	IFS="$NEWLINE_CHAR_PSST"
-	for line in $lines
-	do
-		line=${line% }
-		printf "%s\n" "$line"
-	done
+	lines=$( printf "%s\n" "$string"        \
+		| fold -w "$TERMINAL_WIDTH_PSST" -s \
+		| sed "s/ $//"
+	)
+	printf "%s\n" "$lines"
 )
 
 
@@ -79,7 +76,10 @@ print_i_psst ( )
 	string="$*"
 
 	cols=$(( TERMINAL_WIDTH_PSST - indent ))
-	lines=$( printf "%s\n" "$string" | fold -w "$cols" -s )
+	lines=$( printf "%s\n" "$string" \
+		| fold -w "$cols" -s         \
+		| sed "s/ $//"
+	)
 
 	IFS="$NEWLINE_CHAR_PSST"
 	for line in $lines
