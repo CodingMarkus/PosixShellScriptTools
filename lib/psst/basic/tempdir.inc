@@ -47,7 +47,7 @@ tempdir_psst ( )
 	# shellcheck disable=2064 # Expand $tmpDir now, not on script exit
 	on_exit_psst "rm -rf \"$_tmpDir_psst\""
 
-	eval "$_resultName_psst=\"\$tmpDir_psst\""
+	eval "$_resultName_psst=\"\$_tmpDir_psst\""
 
 	# Clean up to not leave any traces of this function call
 	unset _tmpDir_psst

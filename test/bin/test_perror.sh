@@ -59,7 +59,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc"
 
 	tmpDir="/tmp"
-	tempdir_psst "tmpDir"
+	tempdir_psst "tmpDir" || testfail_psst $LINENO
 
 	printDst="$tmpDir/print_psst"
 	perror_i_psst 5 "This is a very long test sentence, that should be"   \
