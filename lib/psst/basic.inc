@@ -19,6 +19,9 @@ fi
 # shellcheck source=basic/abspath.inc
 . "$INCLUDE_PSST/basic/abspath.inc"
 
+# shellcheck source=basic/assert.inc
+. "$INCLUDE_PSST/basic/assert.inc"
+
 # shellcheck source=basic/chkcmd.inc
 . "$INCLUDE_PSST/basic/chkcmd.inc"
 
@@ -42,3 +45,6 @@ fi
 
 # shellcheck source=basic/tempdir.inc
 . "$INCLUDE_PSST/basic/tempdir.inc"
+
+# shellcheck source=basic/test.inc
+. "$INCLUDE_PSST/basic/test.inc"
