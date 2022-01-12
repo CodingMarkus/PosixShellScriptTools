@@ -9,6 +9,10 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc_"
 
 
+# shellcheck source=stack.inc
+. "$INCLUDE_PSST/basic/stack.inc"
+
+
 ##
 # FUNCTION
 # 	on_exit_psst <codeToEval>
@@ -28,16 +32,43 @@ on_exit_psst ( )
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_oldtraps_psst=$(trap)
-    _oldexit_psst=$(echo "$_oldtraps_psst" \
-        | grep "EXIT$" \
-        | sed -E 's/^trap -- (.*) EXIT$/\1/')
-    if [ -n "$_oldexit_psst" ]
+    if ! stack_exists_psst "onExitStack_psst"
     then
-        # shellcheck disable=SC2064
-        trap "eval $_oldexit_psst ; $1" EXIT
-    else
-        # shellcheck disable=SC2064
-        trap "$1" EXIT
+    	_oldtraps_psst=$(trap)
+        _oldexit_psst=$(echo "$_oldtraps_psst" \
+            | grep "EXIT$" \
+            | sed -E 's/^trap -- (.*) EXIT$/\1/')
+        if [ -n "$_oldexit_psst" ]
+            then
+            # shellcheck disable=SC2064
+            trap "eval $_oldexit_psst ; __run_on_exit_psst" EXIT
+        else
+            # shellcheck disable=SC2064
+            trap "$1" EXIT
+        fi
     fi
+
+    stack_push_psst "$1" "onExitStack_psst"
+}
+
+
+##
+# FUNCTION
+# 	_run_on_exit_psst_
+#
+# SUMMARY
+# 	Performs all registered on exit handlers.
+#
+__run_on_exit_psst ( )
+{
+
+    # We cannot use a sub shell for this function as we need to register the
+	# variables in the main shell. Thus we need to be careful to not conflict
+	# when defining local variables.
+
+    _evalMe_psst=
+    while stack_pop_psst "onExitStack_psst" _evalMe_psst
+    do
+        eval "$_evalMe_psst"
+    done
 }
