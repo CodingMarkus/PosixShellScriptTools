@@ -19,7 +19,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc"
 
 	# Must respect columns setting
-	[ "$TERMINAL_WIDTH_PSST" = "30" ] || exit 100
+	[ "$TERMINAL_WIDTH_PSST" = "30" ] || testfail_psst $LINENO
 )
 
 (
@@ -27,7 +27,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc"
 
 	# Must respect columns setting, must try to get real terminal width
-	[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || exit 101
+	[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || testfail_psst $LINENO
 )
 
 (
@@ -46,7 +46,8 @@ fi
 		" words and terminate with a newline character." > "$printDst"
 
 	# Test formatting is correct
-	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" || exit 102
+	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" \
+		|| testfail_psst $LINENO
 )
 
 (
@@ -66,5 +67,6 @@ fi
 		" newline character." > "$printDst"
 
 	# Test formatting is correct
-	cmp -s "$printDst" "$cmdBase/../data/print/print_indent.txt" || exit 103
+	cmp -s "$printDst" "$cmdBase/../data/print/print_indent.txt" \
+		|| testfail_psst $LINENO
 )

@@ -15,15 +15,16 @@ fi
 # =============================================================================
 
 # Must fail for non-existing file
-! abspath_psst "cmdBase/../data/abspath/__not_existing__" || exit 100
+! abspath_psst "cmdBase/../data/abspath/__not_existing__" \
+	|| testfail_psst $LINENO
 
 # Returned path must be absolute
 relpath="$cmdBase/../data/abspath/abspath.txt"
 abspath=$( abspath_psst "$relpath" )
 case "$abspath" in
 	/*) ;;
-	*) exit 101
+	*) testfail_psst $LINENO
 esac
 
 # Returned path must refer to the same file
-test "$relpath" -ef "$abspath" || exit 102
+test "$relpath" -ef "$abspath" || testfail_psst $LINENO

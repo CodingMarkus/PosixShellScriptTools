@@ -17,46 +17,46 @@ fi
 # Test push, pop
 oldIFS="$IFS"
 
-set_ifs_psst "a"
-test "$IFS" == "a" || exit 100
+set_ifs_psst "a" || testfail_psst $LINENO
+test "$IFS" == "a" || testfail_psst $LINENO
 
 restore_ifs_psst
-test "$IFS" = "$oldIFS" || exit 101
+test "$IFS" = "$oldIFS" || testfail_psst $LINENO
 
 
 # Test push, push, pop, pop
 oldIFS="$IFS"
 
-set_ifs_psst "a"
-test "$IFS" == "a" || exit 102
+set_ifs_psst "a" || testfail_psst $LINENO
+test "$IFS" == "a" || testfail_psst $LINENO
 
-set_ifs_psst "b"
-test "$IFS" == "b" || exit 103
-
-restore_ifs_psst
-test "$IFS" == "a" || exit 104
+set_ifs_psst "b" || testfail_psst $LINENO
+test "$IFS" == "b" || testfail_psst $LINENO
 
 restore_ifs_psst
-test "$IFS" = "$oldIFS" || exit 105
+test "$IFS" == "a" || testfail_psst $LINENO
+
+restore_ifs_psst
+test "$IFS" = "$oldIFS" || testfail_psst $LINENO
 
 
 # Test push, push, pop, push, pop, pop
 oldIFS="$IFS"
 
-set_ifs_psst "a"
-test "$IFS" == "a" || exit 106
+set_ifs_psst "a" || testfail_psst $LINENO
+test "$IFS" == "a" || testfail_psst $LINENO
 
-set_ifs_psst "b"
-test "$IFS" == "b" || exit 107
-
-restore_ifs_psst
-test "$IFS" == "a" || exit 108
-
-set_ifs_psst "c"
-test "$IFS" == "c" || exit 109
+set_ifs_psst "b" || testfail_psst $LINENO
+test "$IFS" == "b" || testfail_psst $LINENO
 
 restore_ifs_psst
-test "$IFS" == "a" || exit 110
+test "$IFS" == "a" || testfail_psst $LINENO
+
+set_ifs_psst "c" || testfail_psst $LINENO
+test "$IFS" == "c" || testfail_psst $LINENO
 
 restore_ifs_psst
-test "$IFS" = "$oldIFS" || exit 111
+test "$IFS" == "a" || testfail_psst $LINENO
+
+restore_ifs_psst
+test "$IFS" = "$oldIFS" || testfail_psst $LINENO
