@@ -24,7 +24,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _assert.inc_"
 # SAMPLE
 # 	test [ "$index" -gt 0 ] || assert_fail_psst "Index must be > 0"
 #
-assertfail_psst ( )
+assertfail_psst()
 {
 	printf "%s\n" "$1"
 	exit 127

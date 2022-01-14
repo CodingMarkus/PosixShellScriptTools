@@ -34,7 +34,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _print.inc_"
 # 	print_psst "This is a very long line that we break into" \
 #		" two arguments, yet it will be printed like a single string."
 #
-print_psst ( )
+print_psst()
 (
 	IFS=""
 	string="$*"
@@ -67,7 +67,7 @@ print_psst ( )
 # SAMPLE
 # 	print_i_psst 4 "Hello Indention!"
 #
-print_i_psst ( )
+print_i_psst()
 (
 	indent="$1"
 	shift

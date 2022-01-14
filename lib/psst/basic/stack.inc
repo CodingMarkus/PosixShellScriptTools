@@ -29,7 +29,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _stack.inc_"
 # SAMPLE
 # 	stack_push_psst "$value" "someStackName"
 #
-stack_push_psst ( )
+stack_push_psst()
 {
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_newValue_psst="$1"
@@ -87,7 +87,7 @@ stack_push_psst ( )
 # 		# Do something with $myResultVar
 # 	fi
 #
-stack_pop_psst ( )
+stack_pop_psst()
 {
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackName_psst="$1"
@@ -155,7 +155,7 @@ stack_pop_psst ( )
 # 		# Do something with the stack
 # 	fi
 #
-stack_exists_psst ( )
+stack_exists_psst()
 {
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackName_psst="$1"

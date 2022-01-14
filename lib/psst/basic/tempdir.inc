@@ -29,7 +29,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 # 	tmpDir="/tmp"
 #	tempdir_psst tmpDir
 #
-tempdir_psst ( )
+tempdir_psst()
 {
 	_resultName_psst="$1"
 

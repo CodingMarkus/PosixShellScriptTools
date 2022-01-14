@@ -34,7 +34,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _perror.inc_"
 # 	perror_psst "Argument 3 has bad syntax. Please read the documentation" \
 #		" found at http://...link..."
 #
-perror_psst ( )
+perror_psst()
 (
 	print_psst "$@" >&2
 )
@@ -60,7 +60,7 @@ perror_psst ( )
 # SAMPLE
 # 	perror_i_psst 4 "Syntax error!"
 #
-perror_i_psst ( )
+perror_i_psst()
 (
 	print_i_psst "$@" >&2
 )

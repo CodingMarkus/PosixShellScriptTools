@@ -29,7 +29,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc_"
 # SAMPLE
 # 	absPath=$( abspath_psst "$relativePath" )
 #
-abspath_psst ( )
+abspath_psst()
 (
 	path="$1"
 

@@ -26,7 +26,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _test.inc_"
 # SAMPLE
 # 	func_that_must_not_fail || testfail_psst $LINENO
 #
-testfail_psst ( )
+testfail_psst()
 {
 	assertfail_psst "Test at line $1 failed!"
 }

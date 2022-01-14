@@ -31,7 +31,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc_"
 # SAMPLE
 # 	set_ifs_psst "$NUL_CHAR_PSST"
 #
-set_ifs_psst ( )
+set_ifs_psst()
 {
 	_newIFSValue_psst="$1"
 
@@ -58,7 +58,7 @@ set_ifs_psst ( )
 # SAMPLE
 # 	restore_ifs_psst
 #
-restore_ifs_psst ( )
+restore_ifs_psst()
 {
 
 	# We cannot use a sub shell for this function as we need to register the

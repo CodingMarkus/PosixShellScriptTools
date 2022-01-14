@@ -33,7 +33,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc_"
 # SAMPLE
 # 	globbed=$( glob_psst "$somePath/*.txt" "/tmp/*.tmp" )
 #
-glob_psst ( )
+glob_psst()
 (
 	filter="$1"
 
@@ -66,7 +66,7 @@ glob_psst ( )
 # SAMPLE
 # 	globbed=$( glob_psst 5 "$somePath/*.txt" "/tmp/*.tmp" )
 #
-glob_max_psst ( )
+glob_max_psst()
 (
 	limit="$1"
 	filter="$2"

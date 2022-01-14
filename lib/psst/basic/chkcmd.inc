@@ -30,7 +30,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _chkcmd.inc_"
 # 		Perform actions with cmd1, cmd2, and cmd3
 # 	fi
 #
-chkcmd_psst ( )
+chkcmd_psst()
 (
 	while [ -n "$1" ]; do
 		if ! command -v "$1" >/dev/null; then

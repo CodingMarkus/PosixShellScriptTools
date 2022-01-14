@@ -26,7 +26,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc_"
 # SAMPLE
 # 	on_exit_psst "rm -rf /tmp/someTempFile.tmp"
 #
-onexit_psst ( )
+onexit_psst()
 {
     # We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
@@ -59,7 +59,7 @@ onexit_psst ( )
 # SUMMARY
 # 	Performs all registered on exit handlers.
 #
-__onexit_run_psst ( )
+__onexit_run_psst()
 {
 
     # We cannot use a sub shell for this function as we need to register the
