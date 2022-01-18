@@ -11,7 +11,7 @@ do
 	"$test" || failure=$?
 	if [ "$failure" -ne 0 ]
 	then
-		echo "$test faild with exit code: $failure" >&2
+		echo "$test failed with exit code: $failure" >&2
 		exit 1
 	fi
 done

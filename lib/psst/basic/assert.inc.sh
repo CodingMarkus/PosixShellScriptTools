@@ -61,9 +61,11 @@ assert_argc_psst()
 		exit 127
 	fi
 
-	assert_hasarg_psst "assert_argc_psst" "func" "$1"
-	assert_hasarg_psst "assert_argc_psst" "expected" "$2"
-	assert_hasarg_psst "assert_argc_psst" "actual" "$3"
+	_func_psst="assert_argc_psst"
+	assert_hasarg_psst "$_func_psst" "func" "$1"
+	assert_hasarg_psst "$_func_psst" "expected" "$2"
+	assert_hasarg_psst "$_func_psst" "actual" "$3"
+	unset _func_psst
 
 	if [ "$2" -ne "$3" ]
 	then
@@ -94,10 +96,12 @@ assert_argc_psst()
 #
 assert_minargc_psst()
 {
-	assert_argc_psst "assert_minargc_psst" 3 $#
-	assert_hasarg_psst "assert_minargc_psst" "func" "$1"
-	assert_hasarg_psst "assert_minargc_psst" "min" "$2"
-	assert_hasarg_psst "assert_minargc_psst" "actual" "$3"
+	_func_psst="assert_minargc_psst"
+	assert_argc_psst "$_func_psst" 3 $#
+	assert_hasarg_psst "$_func_psst" "func" "$1"
+	assert_hasarg_psst "$_func_psst" "min" "$2"
+	assert_hasarg_psst "$_func_psst" "actual" "$3"
+	unset _func_psst
 
 	if [ "$2" -gt "$3" ]
 	then
@@ -128,10 +132,12 @@ assert_minargc_psst()
 #
 assert_maxargc_psst()
 {
-	assert_argc_psst "assert_minargc_psst" 3 $#
-	assert_hasarg_psst "assert_minargc_psst" "func" "$1"
-	assert_hasarg_psst "assert_minargc_psst" "max" "$2"
-	assert_hasarg_psst "assert_minargc_psst" "actual" "$3"
+	_func_psst="assert_maxargc_psst"
+	assert_argc_psst "$_func_psst" 3 $#
+	assert_hasarg_psst "$_func_psst" "func" "$1"
+	assert_hasarg_psst "$_func_psst" "max" "$2"
+	assert_hasarg_psst "$_func_psst" "actual" "$3"
+	unset _func_psst
 
 	if [ "$2" -lt "$3" ]
 	then
