@@ -11,7 +11,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _assert.inc.sh_"
 
 ##
 # FUNCTION
-# 	assertfail_psst <msg>
+# 	assert_fail_psst <msg>
 #
 # SUMMARY
 # 	Prints `msg` to stderr and terminates current process with error 127,
@@ -24,7 +24,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _assert.inc.sh_"
 # SAMPLE
 # 	test [ "$index" -gt 0 ] || assert_fail_psst "Index must be > 0"
 #
-assertfail_psst()
+assert_fail_psst()
 {
 	printf "%s\n" "$1"
 	exit 127

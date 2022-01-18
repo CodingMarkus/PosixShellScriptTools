@@ -15,18 +15,18 @@ fi
 # =============================================================================
 
 # cd should be found
-chkcmd_psst "cd" || testfail_psst $LINENO
+chkcmd_psst "cd" || test_fail_psst $LINENO
 
 # Should also work with multiple commands
-chkcmd_psst "cd" "ls" || testfail_psst $LINENO
+chkcmd_psst "cd" "ls" || test_fail_psst $LINENO
 
 # Fictional command should not be found
-! chkcmd_psst "__this_is_not_a_command" || testfail_psst $LINENO
+! chkcmd_psst "__this_is_not_a_command" || test_fail_psst $LINENO
 
 # Multiple fictional command should not be found
 ! chkcmd_psst "__this_is_not_a_command" "__this_either__" \
-	|| testfail_psst $LINENO
+	|| test_fail_psst $LINENO
 
 # Mixing should still fail
-! chkcmd_psst "__this_is_not_a_command" "ls" || testfail_psst $LINENO
-! chkcmd_psst "cd" "__this_either__" || testfail_psst $LINENO
+! chkcmd_psst "__this_is_not_a_command" "ls" || test_fail_psst $LINENO
+! chkcmd_psst "cd" "__this_either__" || test_fail_psst $LINENO

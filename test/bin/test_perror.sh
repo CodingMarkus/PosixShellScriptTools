@@ -19,7 +19,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	# Must respect columns setting
-	[ "$TERMINAL_WIDTH_PSST" = "30" ] || testfail_psst $LINENO
+	[ "$TERMINAL_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
 )
 
 if tput cols >/dev/null 2>&1
@@ -29,7 +29,7 @@ then
 		. "$INCLUDE_PSST/basic.inc.sh"
 
 		# Must respect columns setting, must try to get real terminal width
-		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || testfail_psst $LINENO
+		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
 	)
 fi
 
@@ -51,7 +51,7 @@ fi
 
 	# Test formatting is correct
 	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" \
-		|| testfail_psst $LINENO
+		|| test_fail_psst $LINENO
 )
 
 (
@@ -62,7 +62,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
-	tempdir_psst "tmpDir" || testfail_psst $LINENO
+	tempdir_psst "tmpDir" || test_fail_psst $LINENO
 
 	printDst="$tmpDir/print_psst"
 	perror_i_psst 5 "This is a very long test sentence, that should be"   \
@@ -73,5 +73,5 @@ fi
 
 	# Test formatting is correct
 	cmp -s "$printDst" "$cmdBase/../data/print/print_indent.txt" \
-		|| testfail_psst $LINENO
+		|| test_fail_psst $LINENO
 )

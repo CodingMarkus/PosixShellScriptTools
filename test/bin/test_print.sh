@@ -19,7 +19,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	# Must respect columns setting
-	[ "$TERMINAL_WIDTH_PSST" = "30" ] || testfail_psst $LINENO
+	[ "$TERMINAL_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
 )
 
 if tput cols >/dev/null 2>&1
@@ -29,7 +29,7 @@ then
 		. "$INCLUDE_PSST/basic.inc.sh"
 
 		# Must respect columns setting, must try to get real terminal width
-		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || testfail_psst $LINENO
+		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
 	)
 fi
 
@@ -50,7 +50,7 @@ fi
 
 	# Test formatting is correct
 	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" \
-		|| testfail_psst $LINENO
+		|| test_fail_psst $LINENO
 )
 
 (
@@ -71,5 +71,5 @@ fi
 
 	# Test formatting is correct
 	cmp -s "$printDst" "$cmdBase/../data/print/print_indent.txt" \
-		|| testfail_psst $LINENO
+		|| test_fail_psst $LINENO
 )

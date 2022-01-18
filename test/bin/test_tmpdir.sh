@@ -19,19 +19,19 @@ tmpDir=$(
 	tempdir_psst "tmpDir"
 
 	# Must not be empty
-	[ -n "$tmpDir" ] || testfail_psst $LINENO
+	[ -n "$tmpDir" ] || test_fail_psst $LINENO
 
 	# Must have been altered
-	[ "$tmpDir" != "/tmp" ] || testfail_psst $LINENO
+	[ "$tmpDir" != "/tmp" ] || test_fail_psst $LINENO
 
 	# Must be an existing directory
-	[ -d "$tmpDir" ] || testfail_psst $LINENO
+	[ -d "$tmpDir" ] || test_fail_psst $LINENO
 
 	printf "%s\n" "$tmpDir"
 )
 
 # Must still not be empty
-[ -n "$tmpDir" ] || testfail_psst $LINENO
+[ -n "$tmpDir" ] || test_fail_psst $LINENO
 
 # Directory must not exist any longer
-[ ! -d "$tmpDir" ]  || testfail_psst $LINENO
+[ ! -d "$tmpDir" ]  || test_fail_psst $LINENO
