@@ -14,6 +14,21 @@ fi
 
 # =============================================================================
 
+# Must accept exactly one argument
+set +e
+( abspath_psst 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( abspath_psst 1 2  2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+# Argument must not be empty
+set +e
+( abspath_psst "" 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
 # Must fail for non-existing file
 ! abspath_psst "cmdBase/../data/abspath/__not_existing__" \
 	|| test_fail_psst $LINENO

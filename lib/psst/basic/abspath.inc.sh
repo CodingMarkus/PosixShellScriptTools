@@ -9,6 +9,10 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
 
 
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
+
+
 ##
 # SUBPROCESS
 # 	abspath_psst <path>
@@ -31,7 +35,12 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
 #
 abspath_psst()
 (
-	path="$1"
+	path=$1
+
+	_func_psst="abspath_psst"
+	assert_argc_psst "$_func_psst" 1 $#
+	assert_hasarg_psst "$_func_psst" "path" "$1"
+	unset _func_psst
 
 	if [ ! -e "$path" ]; then
 		return 1
