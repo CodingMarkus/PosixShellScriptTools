@@ -9,6 +9,10 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _chkcmd.inc.sh_"
 
 
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
+
+
 ##
 # SUBPROCESS
 # 	chkcmd_psst <cmd> [<cmd>] [<cmd>] ...
@@ -32,6 +36,10 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _chkcmd.inc.sh_"
 #
 chkcmd_psst()
 (
+	func="chkcmd_psst"
+	assert_minargc_psst "$func" 1 $#
+	assert_hasarg_psst "$func" "cmd" "$1"
+
 	while [ -n "$1" ]; do
 		if ! command -v "$1" >/dev/null; then
 			return 1

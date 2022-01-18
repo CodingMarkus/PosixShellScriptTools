@@ -72,6 +72,10 @@ print_i_psst()
 	indent="$1"
 	shift
 
+	func="print_i_psst"
+	assert_minargc_psst "$func" 1 $#
+	assert_hasarg_psst "$func" "indent" "$1"
+
 	IFS=""
 	string="$*"
 

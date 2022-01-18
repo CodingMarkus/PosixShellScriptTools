@@ -39,6 +39,12 @@ stack_push_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
+	_func_psst="stack_push_psst"
+	assert_argc_psst "$_func_psst" 2 $#
+	assert_hasarg_psst "$_func_psst" "stackName" "$2"
+	unset _fun_psst
+
+
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackCountName_psst="${_stackName_psst}__stackCount_psst"
 
@@ -96,6 +102,12 @@ stack_pop_psst()
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
+
+	_func_psst="stack_pop_psst"
+	assert_argc_psst "$_func_psst" 2 $#
+	assert_hasarg_psst "$_func_psst" "stackName" "$1"
+	assert_hasarg_psst "$_func_psst" "resultVarName" "$2"
+	unset _fun_psst
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackCountName_psst="${_stackName_psst}__stackCount_psst"

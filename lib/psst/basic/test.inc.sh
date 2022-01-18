@@ -31,5 +31,9 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _test.inc.sh_"
 #
 test_fail_psst()
 {
+	# We cannot use a sub shell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
 	assert_fail_psst "Test ${2:+"in $2 "}at line $1 failed"
 }

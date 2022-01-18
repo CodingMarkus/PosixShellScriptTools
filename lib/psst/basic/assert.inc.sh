@@ -26,6 +26,10 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _assert.inc.sh_"
 #
 assert_fail_psst()
 {
+	# We cannot use a sub shell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
 	assert_argc_psst "assert_fail_psst" 1 $#
 	assert_hasarg_psst "assert_argc_psst" "msg" "$1"
 
@@ -54,6 +58,10 @@ assert_fail_psst()
 #
 assert_argc_psst()
 {
+	# We cannot use a sub shell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
 	if [ $# -ne 3 ]
 	then
 		printf "Assertion fail: Function %s expects %s arguments, got %s!\n" \
@@ -96,6 +104,10 @@ assert_argc_psst()
 #
 assert_minargc_psst()
 {
+	# We cannot use a sub shell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
 	_func_psst="assert_minargc_psst"
 	assert_argc_psst "$_func_psst" 3 $#
 	assert_hasarg_psst "$_func_psst" "func" "$1"
@@ -132,6 +144,10 @@ assert_minargc_psst()
 #
 assert_maxargc_psst()
 {
+	# We cannot use a sub shell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
 	_func_psst="assert_maxargc_psst"
 	assert_argc_psst "$_func_psst" 3 $#
 	assert_hasarg_psst "$_func_psst" "func" "$1"
@@ -168,6 +184,10 @@ assert_maxargc_psst()
 #
 assert_hasarg_psst()
 {
+	# We cannot use a sub shell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
 	if [ $# -lt 2 ]
 	then
 		printf "%s: Function \"%s\" expects at least %s arguments, got %s!\n" \

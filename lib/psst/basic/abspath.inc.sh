@@ -37,10 +37,9 @@ abspath_psst()
 (
 	path=$1
 
-	_func_psst="abspath_psst"
-	assert_argc_psst "$_func_psst" 1 $#
-	assert_hasarg_psst "$_func_psst" "path" "$1"
-	unset _func_psst
+	func="abspath_psst"
+	assert_argc_psst "$func" 1 $#
+	assert_hasarg_psst "$func" "path" "$1"
 
 	if [ ! -e "$path" ]; then
 		return 1

@@ -12,6 +12,8 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc.sh_"
 # shellcheck source=stack.inc.sh
 . "$INCLUDE_PSST/basic/stack.inc.sh"
 
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
 
 
 ##
@@ -39,6 +41,9 @@ set_ifs_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
+	_func_psst="set_ifs_psst"
+	assert_argc_psst "$_func_psst" 1 $#
+
 	stack_push_psst "$IFS" "ifsStack_psst" || return 1
 	IFS="$_newIFSValue_psst"
 
@@ -60,10 +65,12 @@ set_ifs_psst()
 #
 restore_ifs_psst()
 {
-
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
+
+	_func_psst="set_ifs_psst"
+	assert_argc_psst "$_func_psst" 0 $#
 
 	if ! stack_pop_psst "ifsStack_psst" IFS
 	then
