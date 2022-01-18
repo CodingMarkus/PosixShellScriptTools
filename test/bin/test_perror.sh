@@ -22,13 +22,16 @@ fi
 	[ "$TERMINAL_WIDTH_PSST" = "30" ] || testfail_psst $LINENO
 )
 
-(
-
-	# Must respect columns setting, must try to get real terminal width
-	[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || testfail_psst $LINENO
-)
+if tput cols >/dev/null 2>&1
+then
+	(
 		# shellcheck source=../../lib/psst/basic.inc.sh
 		. "$INCLUDE_PSST/basic.inc.sh"
+
+		# Must respect columns setting, must try to get real terminal width
+		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || testfail_psst $LINENO
+	)
+fi
 
 (
 	# shellcheck disable=SC2030 disable=SC2031

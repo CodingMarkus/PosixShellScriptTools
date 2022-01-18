@@ -8,7 +8,7 @@ cmdBase=$( dirname "$0" )
 for test in "$cmdBase/"test_*.sh
 do
 	failure=0
-	$test || failure=$?
+	"$test" || failure=$?
 	if [ "$failure" -ne 0 ]
 	then
 		echo "$test faild with exit code: $failure" >&2
