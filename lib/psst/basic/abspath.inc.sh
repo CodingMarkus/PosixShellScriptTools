@@ -2,11 +2,11 @@
 
 # Double include protection
 case "$INCLUDE_SEEN_PSST" in
-	*_abspath.inc_*)
+	*_abspath.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc_"
+INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
 
 
 ##

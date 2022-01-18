@@ -2,15 +2,15 @@
 
 # Double include protection
 case "$INCLUDE_SEEN_PSST" in
-	*_test.inc_*)
+	*_test.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _test.inc_"
+INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _test.inc.sh_"
 
 
-# shellcheck source=assert.inc
-. "$INCLUDE_PSST/basic/assert.inc"
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
 
 
 ##

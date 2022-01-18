@@ -2,19 +2,19 @@
 
 # Double include protection
 case "$INCLUDE_SEEN_PSST" in
-	*_glob.inc_*)
+	*_glob.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc_"
+INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc.sh_"
 
 
-# shellcheck source=globals.inc
-. "$INCLUDE_PSST/basic/globals.inc"
+# shellcheck source=globals.inc.sh
+. "$INCLUDE_PSST/basic/globals.inc.sh"
 
 
-# shellcheck source=ifs.inc
-. "$INCLUDE_PSST/basic/ifs.inc"
+# shellcheck source=ifs.inc.sh
+. "$INCLUDE_PSST/basic/ifs.inc.sh"
 
 
 ##

@@ -15,27 +15,27 @@ fi
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=30
 
-	# shellcheck source=../../lib/psst/basic.inc
-	. "$INCLUDE_PSST/basic.inc"
+	# shellcheck source=../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
 
 	# Must respect columns setting
 	[ "$TERMINAL_WIDTH_PSST" = "30" ] || testfail_psst $LINENO
 )
 
 (
-	# shellcheck source=../../lib/psst/basic.inc
-	. "$INCLUDE_PSST/basic.inc"
 
 	# Must respect columns setting, must try to get real terminal width
 	[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || testfail_psst $LINENO
 )
+		# shellcheck source=../../lib/psst/basic.inc.sh
+		. "$INCLUDE_PSST/basic.inc.sh"
 
 (
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=15
 
-	# shellcheck source=../../lib/psst/basic.inc
-	. "$INCLUDE_PSST/basic.inc"
+	# shellcheck source=../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
 	tempdir_psst "tmpDir"
@@ -55,8 +55,8 @@ fi
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=20
 
-	# shellcheck source=../../lib/psst/basic.inc
-	. "$INCLUDE_PSST/basic.inc"
+	# shellcheck source=../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
 	tempdir_psst "tmpDir" || testfail_psst $LINENO

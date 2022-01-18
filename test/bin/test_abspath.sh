@@ -9,8 +9,8 @@ if [ -z "$INCLUDE_PSST" ]; then
 	INCLUDE_PSST="$cmdBase/../../lib/psst"
 fi
 
-# shellcheck source=../../lib/psst/basic.inc
-. "$INCLUDE_PSST/basic.inc"
+# shellcheck source=../../lib/psst/basic.inc.sh
+. "$INCLUDE_PSST/basic.inc.sh"
 
 # =============================================================================
 

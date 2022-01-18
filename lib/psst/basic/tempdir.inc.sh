@@ -9,8 +9,8 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 
 
-# shellcheck source=onexit.inc
-. "$INCLUDE_PSST/basic/onexit.inc"
+# shellcheck source=onexit.inc.sh
+. "$INCLUDE_PSST/basic/onexit.inc.sh"
 
 
 ##
