@@ -56,7 +56,7 @@ assert_argc_psst()
 {
 	if [ $# -ne 3 ]
 	then
-		printf "Assertion fail: Function %s expects %s arguments, got %s!" \
+		printf "Assertion fail: Function %s expects %s arguments, got %s!\n" \
 			assert_argc_psst 3 $# >&2
 		exit 127
 	fi
@@ -69,7 +69,7 @@ assert_argc_psst()
 
 	if [ "$2" -ne "$3" ]
 	then
-		printf "Assertion fail: Function %s expects %s arguments, got %s!" \
+		printf "Assertion fail: Function %s expects %s arguments, got %s!\n" \
 			"$@" >&2
 		exit 127
 	fi
@@ -105,7 +105,7 @@ assert_minargc_psst()
 
 	if [ "$2" -gt "$3" ]
 	then
-		printf "%s: Function %s expects at least %s arguments, got %s!" \
+		printf "%s: Function %s expects at least %s arguments, got %s!\n" \
 			"Assertion fail" "$@" >&2
 		exit 127
 	fi
@@ -141,7 +141,7 @@ assert_maxargc_psst()
 
 	if [ "$2" -lt "$3" ]
 	then
-		printf "%s: Function %s expects at most %s arguments, got %s!" \
+		printf "%s: Function %s expects at most %s arguments, got %s!\n" \
 			"Assertion fail" "$@" >&2
 		exit 127
 	fi
@@ -170,33 +170,24 @@ assert_hasarg_psst()
 {
 	if [ $# -lt 2 ]
 	then
-		printf "%s: Function %s expects at least %s arguments, got %s!" \
+		printf "%s: Function \"%s\" expects at least %s arguments, got %s!\n" \
 			"Assertion fail" assert_argc_psst 2 $# >&2
 		exit 127
 	fi
 
 	if [ $# -gt 3 ]
 	then
-		printf "%s: Function %s expects at most %s arguments, got %s!" \
+		printf "%s: Function \"%s\" expects at most %s arguments, got %s!\n" \
 			"Assertion fail" assert_argc_psst 3 $# >&2
 		exit 127
 	fi
 
-	if [ $# = 3 ]
+	if { [ $# = 3 ] && [ -z "$3" ] ; } \
+		|| { [ $# = 2 ] && [ -z "$(eval "echo \$$2")" ] ; }
 	then
-		if [ -z "$3" ]
-		then
-			printf "%s: Argument %s of function %s must not be empty!" \
-				"Assertion fail" "$2" "$1" >&2
-			exit 127
-		fi
-		return
-	fi
-
-	if [ -z "$(eval "echo \$$2")" ]
-	then
-		printf "%s: Argument %s of function %s must not be empty!" \
-			"Assertion fail" "$2" "$1" >&2
+		printf "%s: %s of %s must not be empty!\n" \
+			"Assertion fail" "Argument \"$2\"" "function \"$1\"" >&2
 		exit 127
 	fi
+	return
 }
