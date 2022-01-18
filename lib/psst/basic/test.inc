@@ -15,18 +15,21 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _test.inc_"
 
 ##
 # FUNCTION
-# 	testfail_psst <lineno>
+# 	testfail_psst <lineno> [<filename>]
 #
 # SUMMARY
-#	Prints line number of failed test to stderr by calling `assertfail_psst`.`
+#	Prints line number (and file name if available) of failed test to
+#	stderr by calling `assertfail_psst`.`
 #
 # PARAMETERS
 # 	lineno: Line number of failed test
+# 	filename: Name of file of failed test
 #
 # SAMPLE
 # 	func_that_must_not_fail || testfail_psst $LINENO
+#	func_that_must_not_fail2 || testfail_psst $LINENO my_tests
 #
 testfail_psst()
 {
-	assertfail_psst "Test at line $1 failed!"
+	assertfail_psst "Test ${2:+"in $2 "}at line $1 failed!"
 }
