@@ -14,6 +14,27 @@ fi
 
 # =============================================================================
 
+# set_ifs must accept exactly one argument
+set +e
+( abspath_psst 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( abspath_psst 1 2  2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+
+# restore_ifs_psst must accept exactly no argument
+set +e
+( abspath_psst 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( abspath_psst 1 2  2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+
+
 # Test push, pop
 oldIFS="$IFS"
 

@@ -14,6 +14,42 @@ fi
 
 # =============================================================================
 
+# Push must accept exactly two arguments
+set +e
+( stack_push_psst 1 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_push_psst 1 2 3 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+# Stack name must not be empty, value can be empty
+set +e
+( stack_push_psst "test" "" 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_push_psst "" "test" 2>/dev/null ) || test_fail_psst $LINENO
+set -e
+
+
+# Pop must accept exactly two arguments
+set +e
+( stack_pop_psst 1 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_pop_psst 1 2 3 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+# Neither one may be empty
+set +e
+( stack_pop_psst "test" "" 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_pop_psst "" "test" 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
 
 # Test push creates and pops destroys
 ! stack_exists_psst "stack" || test_fail_psst $LINENO

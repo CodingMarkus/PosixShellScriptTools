@@ -11,6 +11,19 @@ fi
 
 # =============================================================================
 
+# print_i must accept at least one argument
+set +e
+( print_i_psst 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+# Argument must not be empty
+set +e
+( print_i_psst "" 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+
 (
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=30
@@ -22,6 +35,7 @@ fi
 	[ "$TERMINAL_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
 )
 
+
 if tput cols >/dev/null 2>&1
 then
 	(
@@ -32,6 +46,7 @@ then
 		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
 	)
 fi
+
 
 (
 	# shellcheck disable=SC2030 disable=SC2031
@@ -52,6 +67,7 @@ fi
 	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" \
 		|| test_fail_psst $LINENO
 )
+
 
 (
 	# shellcheck disable=SC2030 disable=SC2031
