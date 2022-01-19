@@ -9,9 +9,11 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc.sh_"
 
 
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
+
 # shellcheck source=globals.inc.sh
 . "$INCLUDE_PSST/basic/globals.inc.sh"
-
 
 # shellcheck source=ifs.inc.sh
 . "$INCLUDE_PSST/basic/ifs.inc.sh"
@@ -28,21 +30,26 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc.sh_"
 # 	filter: Globbing pattern.
 #
 # OUTPUT
-# 	stdout: Globbed files separated by NUL (`$NUL_CHAR_PSST`).
+# 	stdout: Globbed files separated by FS (`$FS_CHAR_PSST`).
 #
 # SAMPLE
 # 	globbed=$( glob_psst "$somePath/*.txt" "/tmp/*.tmp" )
 #
 glob_psst()
 (
-	filter="$1"
+	func="glob_psst"
+	assert_minargc_psst "$func" 1 $#
+	assert_hasarg_psst "$func" "filter" "$1"
 
 	IFS=""
-	for f in "$@"
+	separator=
+	# shellcheck disable=SC2048 # We need globbing here!
+	for f in $*
 	do
 		if [ -e "$f" ]
 		then
-			printf "%s%s" "$f" "$NUL_CHAR_PSST"
+			printf "%s%s" "$separator" "$f"
+			separator=$FS_CHAR_PSST
 		fi
 	done
 )
@@ -61,7 +68,7 @@ glob_psst()
 # 	filter: Globbing pattern.
 #
 # OUTPUT
-# 	stdout: Globbed files separated by NUL (`$NUL_CHAR_PSST`).
+# 	stdout: Globbed files separated by NUL (`$FS_CHAR_PSST`).
 #
 # SAMPLE
 # 	globbed=$( glob_psst 5 "$somePath/*.txt" "/tmp/*.tmp" )
@@ -69,15 +76,23 @@ glob_psst()
 glob_max_psst()
 (
 	limit="$1"
-	filter="$2"
 
+	func="glob_psst"
+	assert_minargc_psst "$func" 2 $#
+	assert_hasarg_psst "$func" "limit" "$limit"
+	assert_hasarg_psst "$func" "filter" "$2"
+
+	shift
 	IFS=""
 	count=0
-	for f in $filter
+	separator=
+	# shellcheck disable=SC2048 # We need globbing here!
+	for f in $*
 	do
 		if [ -e "$f" ]
 		then
-			printf "%s%s" "$f" "$NUL_CHAR_PSST"
+			printf "%s%s" "$separator" "$f"
+			separator=$FS_CHAR_PSST
 			count=$(( count + 1 ))
 			if [ $count -ge "$limit" ]
 			then
