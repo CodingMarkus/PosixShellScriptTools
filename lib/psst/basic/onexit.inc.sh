@@ -44,7 +44,7 @@ onexit_psst()
             trap "eval $_oldexit_psst ; __onexit_run_psst" EXIT
         else
             # shellcheck disable=SC2064
-            trap "$1" EXIT
+            trap "__onexit_run_psst" EXIT
         fi
     fi
 
