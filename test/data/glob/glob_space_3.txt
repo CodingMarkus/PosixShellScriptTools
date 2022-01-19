@@ -1,0 +1,3 @@
+../data/glob/testdir/01  .space
+../data/glob/testdir/02  .space
+../data/glob/testdir/03  .space
