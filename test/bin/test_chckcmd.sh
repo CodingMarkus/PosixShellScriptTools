@@ -5,7 +5,8 @@ set -e
 
 cmdBase=$( dirname "$0" )
 
-if [ -z "$INCLUDE_PSST" ]; then
+if [ -z "$INCLUDE_PSST" ]
+then
 	INCLUDE_PSST="$cmdBase/../../lib/psst"
 fi
 
