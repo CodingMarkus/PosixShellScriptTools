@@ -41,6 +41,7 @@ tempdir_psst()
 	_func_psst="tempdir_psst"
 	assert_argc_psst "$_func_psst" 1 $#
 	assert_hasarg_psst "$_func_psst" "resultVarName" "$1"
+	unset _func_psst
 
 	# Also the caller cannot call this function in sub shell either for exactly
 	# the same reason. Thus the result is provided through a variable and the

@@ -35,6 +35,7 @@ onexit_psst()
 	_func_psst="onexit_psst"
 	assert_argc_psst "$_func_psst" 1 $#
 	assert_hasarg_psst "$_func_psst" "codeToEval" "$1"
+    unset _func_psst
 
     if ! stack_exists_psst "onExitStack_psst"
     then

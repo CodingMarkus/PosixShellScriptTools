@@ -43,6 +43,7 @@ set_ifs_psst()
 
 	_func_psst="set_ifs_psst"
 	assert_argc_psst "$_func_psst" 1 $#
+	unset _func_psst
 
 	stack_push_psst "$IFS" "ifsStack_psst" || return 1
 	IFS="$_newIFSValue_psst"
@@ -71,6 +72,7 @@ restore_ifs_psst()
 
 	_func_psst="set_ifs_psst"
 	assert_argc_psst "$_func_psst" 0 $#
+	unset _func_psst
 
 	if ! stack_pop_psst "ifsStack_psst" IFS
 	then
