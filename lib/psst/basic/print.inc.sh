@@ -85,7 +85,7 @@ print_i_psst()
 		| sed "s/ $//"
 	)
 
-	IFS="$NEWLINE_CHAR_PSST"
+	IFS="$NL_CHAR_PSST"
 	for line in $lines
 	do
 		line=${line% }

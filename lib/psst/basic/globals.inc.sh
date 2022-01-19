@@ -11,25 +11,24 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _globals.inc.sh_"
 
 ##
 # CONSTANT
-# 	NEWLINE_CHAR_PSST
+# 	NL_CHAR_PSST
 #
 # SUMMARY
 # 	Newline (`\n`) character as string.
 #
-NEWLINE_CHAR_PSST=$( printf "\n_" )
-NEWLINE_CHAR_PSST=${NEWLINE_CHAR_PSST%_}
+NL_CHAR_PSST=$( printf "\n_" )
+NL_CHAR_PSST=${NL_CHAR_PSST%_}
 
 
 ##
 # CONSTANT
-# 	NUL_CHAR_PSST
+# 	FS_CHAR_PSST
 #
 # SUMMARY
-# 	NUL character as string.
+# 	FS (file separator) character (28/0x1D) as string.
 #
 # shellcheck disable=SC2034
-NUL_CHAR_PSST=$( printf "\0" )
-
+FS_CHAR_PSST=$( printf "\34" )
 
 ##
 # CONSTANT
