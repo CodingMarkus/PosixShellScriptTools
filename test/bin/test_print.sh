@@ -25,6 +25,7 @@ set +e
 set -e
 
 
+# Must respect columns setting
 (
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=30
@@ -32,23 +33,23 @@ set -e
 	# shellcheck source=../../lib/psst/basic.inc.sh
 	. "$INCLUDE_PSST/basic.inc.sh"
 
-	# Must respect columns setting
 	[ "$TERMINAL_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
 )
 
 
+# Must try to get real terminal width
 if tput cols >/dev/null 2>&1
 then
 	(
 		# shellcheck source=../../lib/psst/basic.inc.sh
 		. "$INCLUDE_PSST/basic.inc.sh"
 
-		# Must respect columns setting, must try to get real terminal width
 		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
 	)
 fi
 
 
+# Test print formatting is correct
 (
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=15
@@ -64,12 +65,12 @@ fi
 		" at most every 15 characters but when possible only in between" \
 		" words and terminate with a newline character." > "$printDst"
 
-	# Test formatting is correct
 	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" \
 		|| test_fail_psst $LINENO
 )
 
 
+# Test print_i formatting is correct
 (
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=20
@@ -86,7 +87,6 @@ fi
 		" when possible only in between words and terminate with a"       \
 		" newline character." > "$printDst"
 
-	# Test formatting is correct
 	cmp -s "$printDst" "$cmdBase/../data/print/print_indent.txt" \
 		|| test_fail_psst $LINENO
 )
