@@ -32,12 +32,17 @@ onexit_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
+	_func_psst="onexit_psst"
+	assert_argc_psst "$_func_psst" 1 $#
+	assert_hasarg_psst "$_func_psst" "codeToEval" "$1"
+
     if ! stack_exists_psst "onExitStack_psst"
     then
     	_oldtraps_psst=$(trap)
         _oldexit_psst=$(echo "$_oldtraps_psst" \
             | grep "EXIT$" \
             | sed -E 's/^trap -- (.*) EXIT$/\1/')
+
         if [ -n "$_oldexit_psst" ]
             then
             # shellcheck disable=SC2064

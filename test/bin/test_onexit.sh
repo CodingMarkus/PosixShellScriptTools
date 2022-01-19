@@ -16,37 +16,28 @@ fi
 
 # Must accept exactly one argument
 set +e
-( tempdir_psst 2>/dev/null )
+( onexit_psst 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
-( tempdir_psst 1 2  2>/dev/null )
+( onexit_psst 1 2  2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
 # Argument must not be empty
 set +e
-( tempdir_psst "" 2>/dev/null )
+( onexit_psst "" 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
-tmpDir=$(
-	tmpDir="/tmp"
-	tempdir_psst "tmpDir"
+# Code gets execute on exit
+[ "$( onexit_psst "echo test_success" )" = "test_success" ] \
+	|| test_fail_psst $LINENO
 
-	# Must not be empty
-	[ -n "$tmpDir" ] || test_fail_psst $LINENO
 
-	# Must have been altered
-	[ "$tmpDir" != "/tmp" ] || test_fail_psst $LINENO
-
-	# Must be an existing directory
-	[ -d "$tmpDir" ] || test_fail_psst $LINENO
-
-	printf "%s\n" "$tmpDir"
+# Multiple evaluations are possible
+multi=$(
+	onexit_psst "printf \"test1\""
+	onexit_psst "printf \"test2\""
 )
-
-# Must still not be empty
-[ -n "$tmpDir" ] || test_fail_psst $LINENO
-
-# Directory must not exist any longer
-[ ! -d "$tmpDir" ]  || test_fail_psst $LINENO
+{ [ "$multi" = "test1test2" ] || [ "$multi" = "test2test1" ]; } \
+	|| test_fail_psst $LINENO
