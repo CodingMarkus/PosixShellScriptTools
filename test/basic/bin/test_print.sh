@@ -3,11 +3,10 @@
 # Exit at once if a command fails and the error isn't caught
 set -e
 
-cmdBase=$( dirname "$0" )
-
 if [ -z "$INCLUDE_PSST" ]
 then
-	INCLUDE_PSST="$cmdBase/../../lib/psst"
+	cmdBase=$( dirname "$0" )
+	INCLUDE_PSST="$cmdBase/../../../lib/psst"
 fi
 
 # =============================================================================
@@ -30,7 +29,7 @@ set -e
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=30
 
-	# shellcheck source=../../lib/psst/basic.inc.sh
+	# shellcheck source=../../../lib/psst/basic.inc.sh
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	[ "$TERMINAL_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
@@ -41,7 +40,7 @@ set -e
 if tput cols >/dev/null 2>&1
 then
 	(
-		# shellcheck source=../../lib/psst/basic.inc.sh
+		# shellcheck source=../../../lib/psst/basic.inc.sh
 		. "$INCLUDE_PSST/basic.inc.sh"
 
 		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
@@ -54,8 +53,8 @@ fi
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=15
 
-	# shellcheck source=../../lib/psst/basic.inc.sh
-	. "$INCLUDE_PSST/basic.inc.sh"
+	# shellcheck source=../../../lib/psst/file.inc.sh
+	. "$INCLUDE_PSST/file.inc.sh"
 
 	tmpDir="/tmp"
 	tempdir_psst "tmpDir"
@@ -65,7 +64,7 @@ fi
 		" at most every 15 characters but when possible only in between" \
 		" words and terminate with a newline character." > "$printDst"
 
-	cmp -s "$printDst" "$cmdBase/../data/print/print.txt" \
+	cmp -s "$printDst" "../data/print/print.txt" \
 		|| test_fail_psst $LINENO
 )
 
@@ -75,8 +74,8 @@ fi
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=20
 
-	# shellcheck source=../../lib/psst/basic.inc.sh
-	. "$INCLUDE_PSST/basic.inc.sh"
+	# shellcheck source=../../../lib/psst/file.inc.sh
+	. "$INCLUDE_PSST/file.inc.sh"
 
 	tmpDir="/tmp"
 	tempdir_psst "tmpDir"
@@ -87,6 +86,6 @@ fi
 		" when possible only in between words and terminate with a"       \
 		" newline character." > "$printDst"
 
-	cmp -s "$printDst" "$cmdBase/../data/print/print_indent.txt" \
+	cmp -s "$printDst" "../data/print/print_indent.txt" \
 		|| test_fail_psst $LINENO
 )

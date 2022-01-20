@@ -3,14 +3,13 @@
 # Exit at once if a command fails and the error isn't caught
 set -e
 
-cmdBase=$( dirname "$0" )
-
 if [ -z "$INCLUDE_PSST" ]
 then
-	INCLUDE_PSST="$cmdBase/../../lib/psst"
+	cmdBase=$( dirname "$0" )
+	INCLUDE_PSST="$cmdBase/../../../lib/psst"
 fi
 
-# shellcheck source=../../lib/psst/basic.inc.sh
+# shellcheck source=../../../lib/psst/basic.inc.sh
 . "$INCLUDE_PSST/basic.inc.sh"
 
 # =============================================================================

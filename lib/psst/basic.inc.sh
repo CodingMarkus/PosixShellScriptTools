@@ -8,6 +8,7 @@ case "$INCLUDE_SEEN_PSST" in
 esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _basic.inc.sh_"
 
+
 # Ensure INCLUDE_PSST is set
 if [ -z "$INCLUDE_PSST" ]
 then
@@ -16,17 +17,11 @@ then
 fi
 
 
-# shellcheck source=basic/abspath.inc.sh
-. "$INCLUDE_PSST/basic/abspath.inc.sh"
-
 # shellcheck source=basic/assert.inc.sh
 . "$INCLUDE_PSST/basic/assert.inc.sh"
 
 # shellcheck source=basic/chkcmd.inc.sh
 . "$INCLUDE_PSST/basic/chkcmd.inc.sh"
-
-# shellcheck source=basic/glob.inc.sh
-. "$INCLUDE_PSST/basic/glob.inc.sh"
 
 # shellcheck source=basic/ifs.inc.sh
 . "$INCLUDE_PSST/basic/ifs.inc.sh"
@@ -42,9 +37,6 @@ fi
 
 # shellcheck source=basic/stack.inc.sh
 . "$INCLUDE_PSST/basic/stack.inc.sh"
-
-# shellcheck source=basic/tempdir.inc.sh
-. "$INCLUDE_PSST/basic/tempdir.inc.sh"
 
 # shellcheck source=basic/test.inc.sh
 . "$INCLUDE_PSST/basic/test.inc.sh"

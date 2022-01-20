@@ -9,13 +9,13 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc.sh_"
 
 
-# shellcheck source=assert.inc.sh
+# shellcheck source=../basic/assert.inc.sh
 . "$INCLUDE_PSST/basic/assert.inc.sh"
 
-# shellcheck source=globals.inc.sh
+# shellcheck source=../basic/globals.inc.sh
 . "$INCLUDE_PSST/basic/globals.inc.sh"
 
-# shellcheck source=ifs.inc.sh
+# shellcheck source=../basic/ifs.inc.sh
 . "$INCLUDE_PSST/basic/ifs.inc.sh"
 
 

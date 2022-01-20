@@ -9,7 +9,7 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
 
 
-# shellcheck source=assert.inc.sh
+# shellcheck source=../basic/assert.inc.sh
 . "$INCLUDE_PSST/basic/assert.inc.sh"
 
 
