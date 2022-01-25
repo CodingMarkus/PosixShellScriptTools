@@ -15,7 +15,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _conv.inc.sh_"
 
 ##
 # SUBPROCESS
-# 	chr_psst <charCode>
+# 	conv_chr_psst <charCode>
 #
 # SUMMARY
 # 	Returns character whose character code is `charCode`.
@@ -36,7 +36,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _conv.inc.sh_"
 # SAMPLE
 # 	digit9=$( chr_psst 57 )
 #
-chr_psst()
+conv_chr_psst()
 (
 	charCode=$1
 
@@ -59,7 +59,7 @@ chr_psst()
 
 ##
 # SUBPROCESS
-# 	ord_psst <char>
+# 	conv_ord_psst <char>
 #
 # SUMMARY
 # 	Returns character code of character.
@@ -79,7 +79,7 @@ chr_psst()
 # SAMPLE
 # 	charCode57=$( chr_psst "9" )
 #
-ord_psst()
+conv_ord_psst()
 (
 	char=$1
 
