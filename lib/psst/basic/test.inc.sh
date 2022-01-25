@@ -37,3 +37,33 @@ test_fail_psst()
 
 	assert_fail_psst "Test ${2:+"in $2 "}at line $1 failed"
 }
+
+
+##
+# FUNCTION
+# 	test_is_int_psst <value>
+#
+# SUMMARY
+#	Tests if a value is an integer number.
+#
+# PARAMETERS
+# 	value: The value to test for being an integer.
+#
+# RETURNS
+# 	0: Yes, it is an integer.
+# 	1: No, it isn't.
+#
+# SAMPLE
+# 	test_is_int_psst "abc" || echo "Not an int"
+# 	test_is_int_psst "123" && echo "It is an int"
+#
+test_is_int_psst()
+{
+	# value=$1
+
+	# We could use a subshell here but that would only make this test rather
+	# slow for no reason, so we go for speed.
+	case $1 in
+    	'' | *[!0123456789]*) return 1
+	esac
+}

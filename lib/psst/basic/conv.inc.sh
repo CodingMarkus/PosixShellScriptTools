@@ -9,8 +9,8 @@ esac
 INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _conv.inc.sh_"
 
 
-# shellcheck source=globals.inc.sh
-. "$INCLUDE_PSST/basic/globals.inc.sh"
+# shellcheck source=test.inc.sh
+. "$INCLUDE_PSST/basic/test.inc.sh"
 
 
 ##
@@ -44,12 +44,9 @@ conv_chr_psst()
 	assert_argc_psst "$func_psst" 1 $#
 	assert_hasarg_psst "$func_psst" "charCode" "$charCode"
 
-	case $charCode in
-    	*[!0123456789]*) return 1 ;;
-		"10") return 3
-	esac
-
+	test_is_int_psst "$charCode" || return 1
 	{ [ "$charCode" -lt 0 ] || [ "$charCode" -gt 255 ]; } && return 2
+	[ "$charCode" != "10" ] || return 3
 
 	pattern=$( printf "%03o" "$charCode" )
 	# shellcheck disable=SC2059
