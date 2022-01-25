@@ -11,30 +11,30 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _stack.inc.sh_"
 
 ##
 # FUNCTION
-# 	stack_push_psst <newValue> <stackName>
+#	stack_push_psst <newValue> <stackName>
 #
 # SUMMARY
-# 	Pushes a value to a stack with a given name. If no stack of that name
-# 	exists, it is created. Stack names must follow the same rules as variables,
-# 	e.g. must not contain spaces.
+#	Pushes a value to a stack with a given name. If no stack of that name
+#	exists, it is created. Stack names must follow the same rules as variables,
+#	e.g. must not contain spaces.
 #
 # PARAMETERS
-# 	newValue: Value to push on stack.
+#	newValue: Value to push on stack.
 #	stackName: Name of the stack (no spaces, only letters and underscore).
 #
 # RETURNS
-# 	0: Success.
-# 	1: Value could not be pushed to stack.
+#	0: Success.
+#	1: Value could not be pushed to stack.
 #
 # SAMPLE
-# 	stack_push_psst "$value" "someStackName"
+#	stack_push_psst "$value" "someStackName"
 #
 stack_push_psst()
 {
 	#newValue=$1
 	#stackName=$2
 
-	# We cannot use a sub shell for this function as we need to register the
+	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
@@ -70,33 +70,33 @@ stack_push_psst()
 
 ##
 # FUNCTION
-# 	stack_pop_psst <stackName> <resultVarName>
+#	stack_pop_psst <stackName> <resultVarName>
 #
 # SUMMARY
-# 	Pop a value from a stack with a given name to a variable with a given name.
-# 	If no stack of that name exists, function return indicates failure.
-# 	If the last element of stack was poped, the stack is deleted.
+#	Pop a value from a stack with a given name to a variable with a given name.
+#	If no stack of that name exists, function return indicates failure.
+#	If the last element of stack was poped, the stack is deleted.
 #
 # PARAMETERS
 #	stackName: Name of the stack (no spaces, only letters and underscore).
 #	resultVarName: Name of variable to receive popped value.
 #
 # RETURNS
-# 	0: Success.
-# 	1: No stack with that name has been found.
+#	0: Success.
+#	1: No stack with that name has been found.
 #
 # SAMPLE
-# 	if stack_pop_psst "someStackName" "myResultVar"
-# 	then
-# 		# Do something with $myResultVar
-# 	fi
+#	if stack_pop_psst "someStackName" "myResultVar"
+#	then
+#		# Do something with $myResultVar
+#	fi
 #
 stack_pop_psst()
 {
 	# stackName=$1
 	# resultVarName=$2
 
-	# We cannot use a sub shell for this function as we need to register the
+	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
@@ -142,29 +142,29 @@ stack_pop_psst()
 
 ##
 # FUNCTION
-# 	stack_exists_psst <stackName>
+#	stack_exists_psst <stackName>
 #
 # SUMMARY
-# 	Test if a stack with a given name exists.
+#	Test if a stack with a given name exists.
 #
 # PARAMETERS
 #	stackName: Name of the stack (no spaces, only letters and underscore).
 #
 # RETURNS
-# 	0: Stack does exist.
-# 	1: Stack does not exist.
+#	0: Stack does exist.
+#	1: Stack does not exist.
 #
 # SAMPLE
-# 	if stack_exists_psst "someStackName"
-# 	then
-# 		# Do something with the stack
-# 	fi
+#	if stack_exists_psst "someStackName"
+#	then
+#		# Do something with the stack
+#	fi
 #
 stack_exists_psst()
 {
 	#stackName=$1
 
-	# We cannot use a sub shell for this function as we need to register the
+	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 

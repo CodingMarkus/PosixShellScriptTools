@@ -15,22 +15,22 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc.sh_"
 
 ##
 # FUNCTION
-# 	onexit_psst <codeToEval>
+#	onexit_psst <codeToEval>
 #
 # SUMMARY
-# 	Register code to be executed when process or subprocess exists.
+#	Register code to be executed when process or subprocess exists.
 #
 # PARAMETERS
-# 	codeToEval: String to be passed to `eval`.
+#	codeToEval: String to be passed to `eval`.
 #
 # SAMPLE
-# 	on_exit_psst "rm -rf /tmp/someTempFile.tmp"
+#	on_exit_psst "rm -rf /tmp/someTempFile.tmp"
 #
 onexit_psst()
 {
     #codeToEval=$1
 
-    # We cannot use a sub shell for this function as we need to register the
+    # We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
@@ -62,15 +62,15 @@ onexit_psst()
 
 ##
 # FUNCTION
-# 	__onexit_run_psst
+#	__onexit_run_psst
 #
 # SUMMARY
-# 	Performs all registered on exit handlers.
+#	Performs all registered on exit handlers.
 #
 __onexit_run_psst()
 {
 
-    # We cannot use a sub shell for this function as we need to register the
+    # We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 

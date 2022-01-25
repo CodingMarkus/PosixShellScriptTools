@@ -15,23 +15,23 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _print.inc.sh_"
 
 ##
 # SUBPROCESS
-# 	perror_psst [<arg>] [<arg>] [<arg>] ...
+#	perror_psst [<arg>] [<arg>] [<arg>] ...
 #
 # SUMMARY
-# 	Print argument to stdout followed by a line break. If multiple arguments
-# 	are given, their values are concatenated first. Print empty line to
-# 	stdout if no argument is given. Will try to break lines on word boundaries.
+#	Print argument to stdout followed by a line break. If multiple arguments
+#	are given, their values are concatenated first. Print empty line to
+#	stdout if no argument is given. Will try to break lines on word boundaries.
 #
 # PARAMETERS
 #	[arg]: String value to print.
 #
 # OUTPUT
-# 	stdout: Formatted text that honors terminal width.
+#	stdout: Formatted text that honors terminal width.
 #
 # SAMPLE
 #	print_psst "Hello World!"
-# 	print_psst
-# 	print_psst "This is a very long line that we break into" \
+#	print_psst
+#	print_psst "This is a very long line that we break into" \
 #		" two arguments, yet it will be printed like a single string."
 #
 print_psst()
@@ -49,23 +49,23 @@ print_psst()
 
 ##
 # SUBPROCESS
-# 	print_i_psst <indent> [<arg>] [<arg>] [<arg>] ...
+#	print_i_psst <indent> [<arg>] [<arg>] [<arg>] ...
 #
 # SUMMARY
 #   Like print_psst() but the first argument is the number of indent spaces.
 #
 # SEE
-# 	print_psst()
+#	print_psst()
 #
 # PARAMETERS
 #	indent: Number of spaces in front of every new line.
 #	[arg]: String value to print.
 #
 # OUTPUT
-# 	stdout: Formatted text width indention that honors terminal width.
+#	stdout: Formatted text width indention that honors terminal width.
 #
 # SAMPLE
-# 	print_i_psst 4 "Hello Indention!"
+#	print_i_psst 4 "Hello Indention!"
 #
 print_i_psst()
 (

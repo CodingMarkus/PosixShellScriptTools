@@ -11,22 +11,22 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _assert.inc.sh_"
 
 ##
 # FUNCTION
-# 	assert_fail_psst <msg>
+#	assert_fail_psst <msg>
 #
 # SUMMARY
-# 	Prints `msg` to stderr and terminates current process with error 127,
+#	Prints `msg` to stderr and terminates current process with error 127,
 #	which is the highest possible error as values 128 and up are reserved
 #	for signals and lower values are used by functions as failure indicators.
 #
 # PARAMETERS
-# 	msg: Message to print to stderr.
+#	msg: Message to print to stderr.
 #
 # SAMPLE
-# 	[ "$index" -gt 0 ] || assert_fail_psst "Index must be > 0"
+#	[ "$index" -gt 0 ] || assert_fail_psst "Index must be > 0"
 #
 assert_fail_psst()
 {
-	# We cannot use a sub shell for this function as we need to exit the main
+	# We cannot use a subshell for this function as we need to exit the main
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 
@@ -40,16 +40,16 @@ assert_fail_psst()
 
 ##
 # FUNCTION
-# 	assert_argc_psst <func> <expected> <actual>
+#	assert_argc_psst <func> <expected> <actual>
 #
 # SUMMARY
-# 	Prints an error to stderr if `actual` is not equal `expected`` and
+#	Prints an error to stderr if `actual` is not equal `expected`` and
 #	terminates current process with error 127, which is the highest possible
 #	error as values 128 and up are reserved for signals and lower values are
 #	used by functions as failure indicators.
 #
 # PARAMETERS
-# 	func: Name of the function.
+#	func: Name of the function.
 #	expected: Number of aguments expected.
 #	actual: Number of actual aguments.
 #
@@ -58,7 +58,7 @@ assert_fail_psst()
 #
 assert_argc_psst()
 {
-	# We cannot use a sub shell for this function as we need to exit the main
+	# We cannot use a subshell for this function as we need to exit the main
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 
@@ -86,7 +86,7 @@ assert_argc_psst()
 
 ##
 # FUNCTION
-# 	assert_minargc_psst <func> <min> <actual>
+#	assert_minargc_psst <func> <min> <actual>
 #
 # SUMMARY
 #	Prints an error to stderr if `actual` is smaller than `min` and terminates
@@ -95,7 +95,7 @@ assert_argc_psst()
 #   functions as failure indicators.
 
 # PARAMETERS
-# 	func: Name of the function.
+#	func: Name of the function.
 #	min: Minimum number of aguments expected.
 #	actual: Number of actual aguments.
 #
@@ -104,7 +104,7 @@ assert_argc_psst()
 #
 assert_minargc_psst()
 {
-	# We cannot use a sub shell for this function as we need to exit the main
+	# We cannot use a subshell for this function as we need to exit the main
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 
@@ -126,7 +126,7 @@ assert_minargc_psst()
 
 ##
 # FUNCTION
-# 	assert_maxargc_psst <func> <max> <actual>
+#	assert_maxargc_psst <func> <max> <actual>
 #
 # SUMMARY
 #	Prints an error to stderr if `actual` is bigger than `max` and terminates
@@ -135,7 +135,7 @@ assert_minargc_psst()
 #   functions as failure indicators.
 
 # PARAMETERS
-# 	func: Name of the function.
+#	func: Name of the function.
 #	max: Maximum number of aguments expected.
 #	actual: Number of actual aguments.
 #
@@ -144,7 +144,7 @@ assert_minargc_psst()
 #
 assert_maxargc_psst()
 {
-	# We cannot use a sub shell for this function as we need to exit the main
+	# We cannot use a subshell for this function as we need to exit the main
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 
@@ -166,7 +166,7 @@ assert_maxargc_psst()
 
 ##
 # FUNCTION
-# 	assert_hasarg_psst <func> <arg> [<value>]
+#	assert_hasarg_psst <func> <arg> [<value>]
 #
 # SUMMARY
 #	Prints an error to stderr if `value` is empty and terminates current
@@ -175,7 +175,7 @@ assert_maxargc_psst()
 #	failure indicators. If `value` is not given, expands `arg` instead.
 #
 # PARAMETERS
-# 	func: Name of the function.
+#	func: Name of the function.
 #	arg: Name of the argument.
 #
 # SAMPLE
@@ -184,7 +184,7 @@ assert_maxargc_psst()
 #
 assert_hasarg_psst()
 {
-	# We cannot use a sub shell for this function as we need to exit the main
+	# We cannot use a subshell for this function as we need to exit the main
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 

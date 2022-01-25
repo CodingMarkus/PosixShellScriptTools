@@ -18,7 +18,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc.sh_"
 
 ##
 # FUNCTION
-# 	set_ifs_psst [<newValue>]
+#	set_ifs_psst [<newValue>]
 #
 # SUMMARY
 #	Save the current IFS value to a stack and replace it with a new value. New
@@ -26,20 +26,20 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc.sh_"
 #
 #
 # PARAMETERS
-# 	[newValue]: The new desired value for $IFS.
+#	[newValue]: The new desired value for $IFS.
 #
 # RETURNS
-# 	0: Success.
-# 	1: Current $IFS value could not be saved.
+#	0: Success.
+#	1: Current $IFS value could not be saved.
 #
 # SAMPLE
-# 	set_ifs_psst "$FS_CHAR_PSST"
+#	set_ifs_psst "$FS_CHAR_PSST"
 #
 set_ifs_psst()
 {
 	#newIFSValue=$1
 
-	# We cannot use a sub shell for this function as we need to register the
+	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
@@ -57,18 +57,18 @@ set_ifs_psst()
 
 ##
 # FUNCTION
-# 	restore_ifs_psst
+#	restore_ifs_psst
 #
 # SUMMARY
-# 	Restore the last saved IFS value or set IFS to default if no value has been
-# 	saved at all or all saved values have already been restored.
+#	Restore the last saved IFS value or set IFS to default if no value has been
+#	saved at all or all saved values have already been restored.
 ##
 # SAMPLE
-# 	restore_ifs_psst
+#	restore_ifs_psst
 #
 restore_ifs_psst()
 {
-	# We cannot use a sub shell for this function as we need to register the
+	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 

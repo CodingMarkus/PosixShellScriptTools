@@ -15,23 +15,23 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
 
 ##
 # SUBPROCESS
-# 	abspath_psst <path>
+#	abspath_psst <path>
 #
 # SUMMARY
-# 	Converts relative path to absolute path.
+#	Converts relative path to absolute path.
 #
 # PARAMETERS
-# 	path: Relative or absolute path.
+#	path: Relative or absolute path.
 #
 # RETURNS
-# 	0: Success.
-# 	1: Path does not exists.
+#	0: Success.
+#	1: Path does not exists.
 #
 # OUTPUT
-# 	stdout: Absolute path on success.
+#	stdout: Absolute path on success.
 #
 # SAMPLE
-# 	absPath=$( abspath_psst "$relativePath" )
+#	absPath=$( abspath_psst "$relativePath" )
 #
 abspath_psst()
 (

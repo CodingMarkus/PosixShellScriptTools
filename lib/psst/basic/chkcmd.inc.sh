@@ -15,24 +15,24 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _chkcmd.inc.sh_"
 
 ##
 # SUBPROCESS
-# 	chkcmd_psst <cmd> [<cmd>] [<cmd>] ...
+#	chkcmd_psst <cmd> [<cmd>] [<cmd>] ...
 #
 # SUMMARY
-# 	Check if a list of given commands can be safely called
-# 	from within a script.
+#	Check if a list of given commands can be safely called
+#	from within a script.
 #
 # PARAMETERS
-# 	cmd: Command.
+#	cmd: Command.
 #
 # RETURNS
-# 	0: All commands can be called.
-# 	1: At least one command cannot be called or was not found.
+#	0: All commands can be called.
+#	1: At least one command cannot be called or was not found.
 #
 # SAMPLE
-# 	if cmdchck_psst cmd1 cmd2 cmd3
-# 	then
-# 		Perform actions with cmd1, cmd2, and cmd3
-# 	fi
+#	if cmdchck_psst cmd1 cmd2 cmd3
+#	then
+#		Perform actions with cmd1, cmd2, and cmd3
+#	fi
 #
 chkcmd_psst()
 (

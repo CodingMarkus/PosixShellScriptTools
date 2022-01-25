@@ -15,26 +15,26 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _conv.inc.sh_"
 
 ##
 # SUBPROCESS
-# 	conv_chr_psst <charCode>
+#	conv_chr_psst <charCode>
 #
 # SUMMARY
-# 	Returns character whose character code is `charCode`.
+#	Returns character whose character code is `charCode`.
 #	E.g `65` becomes `A`, `97` becomes `a` and `32` becomes space.
 #
 # PARAMETERS
-# 	charCode: Character code of desired character.
+#	charCode: Character code of desired character.
 #
 # RETURNS
-# 	0: Character code was valid.
-# 	1: Character code was no integer number.
-# 	2: Character code was out of valid range (0-255).
+#	0: Character code was valid.
+#	1: Character code was no integer number.
+#	2: Character code was out of valid range (0-255).
 #   3: Character code is newline (`\n``), which cannot be captured.
 #
 # OUTPUT
-# 	stdout: The characters whose code is `charCode`.
+#	stdout: The characters whose code is `charCode`.
 #
 # SAMPLE
-# 	digit9=$( chr_psst 57 )
+#	digit9=$( chr_psst 57 )
 #
 conv_chr_psst()
 (
@@ -56,25 +56,25 @@ conv_chr_psst()
 
 ##
 # SUBPROCESS
-# 	conv_ord_psst <char>
+#	conv_ord_psst <char>
 #
 # SUMMARY
-# 	Returns character code of character.
+#	Returns character code of character.
 #	E.g `A` becomes `65`, `a` becomes `97`, and space becomes `32`.
 #
 # PARAMETERS
-# 	char: Character whose code shall be returned.
+#	char: Character whose code shall be returned.
 #
 # RETURNS
-# 	0: Argument was a valid character.
+#	0: Argument was a valid character.
 #   1: Argument contained zero characters.
-# 	2: Argument contained more than one character.
+#	2: Argument contained more than one character.
 #
 # OUTPUT
-# 	stdout: The character code of `char`.
+#	stdout: The character code of `char`.
 #
 # SAMPLE
-# 	charCode57=$( chr_psst "9" )
+#	charCode57=$( chr_psst "9" )
 #
 conv_ord_psst()
 (

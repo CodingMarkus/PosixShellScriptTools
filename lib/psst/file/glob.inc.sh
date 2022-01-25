@@ -21,19 +21,19 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc.sh_"
 
 ##
 # SUBPROCESS
-# 	glob_psst <filter>  [<filter>]  [<filter>] ...
+#	glob_psst <filter>  [<filter>]  [<filter>] ...
 #
 # SUMMARY
-# 	Perform file globbing.
+#	Perform file globbing.
 #
 # PARAMETERS
-# 	filter: Globbing pattern.
+#	filter: Globbing pattern.
 #
 # OUTPUT
-# 	stdout: Globbed files separated by FS (`$FS_CHAR_PSST`).
+#	stdout: Globbed files separated by FS (`$FS_CHAR_PSST`).
 #
 # SAMPLE
-# 	globbed=$( glob_psst "$somePath/*.txt" "/tmp/*.tmp" )
+#	globbed=$( glob_psst "$somePath/*.txt" "/tmp/*.tmp" )
 #
 glob_psst()
 (
@@ -58,20 +58,20 @@ glob_psst()
 
 ##
 # SUBPROCESS
-# 	glob_max_psst <limit> <filter>  [<filter>]  [<filter>] ...
+#	glob_max_psst <limit> <filter>  [<filter>]  [<filter>] ...
 #
 # SUMMARY
-# 	Perform file globbing with an upper limit.
+#	Perform file globbing with an upper limit.
 #
 # PARAMETERS
 #	limit: Maximum number of returned files.
-# 	filter: Globbing pattern.
+#	filter: Globbing pattern.
 #
 # OUTPUT
-# 	stdout: Globbed files separated by NUL (`$FS_CHAR_PSST`).
+#	stdout: Globbed files separated by NUL (`$FS_CHAR_PSST`).
 #
 # SAMPLE
-# 	globbed=$( glob_psst 5 "$somePath/*.txt" "/tmp/*.tmp" )
+#	globbed=$( glob_psst 5 "$somePath/*.txt" "/tmp/*.tmp" )
 #
 glob_max_psst()
 (

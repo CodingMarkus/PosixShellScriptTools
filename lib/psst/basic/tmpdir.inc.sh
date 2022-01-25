@@ -15,26 +15,26 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 
 ##
 # FUNCTION
-# 	tmpdir_psst <resultVarName>
+#	tmpdir_psst <resultVarName>
 #
 # SUMMARY
-# 	Create a temporary directoy that cleans automatically on script exit.
-# 	Argument is the name of a variable that shall contain the path to the
-# 	created temporary directoy on return.
+#	Create a temporary directoy that cleans automatically on script exit.
+#	Argument is the name of a variable that shall contain the path to the
+#	created temporary directoy on return.
 #
 # PARAMETERS
-# 	resultVarName: Name of variable the result is written to.
+#	resultVarName: Name of variable the result is written to.
 #
 # SAMPLE
-# 	tmpDir="/tmp"
+#	tmpDir="/tmp"
 #	tmpdir_psst tmpDir
 #
 tmpdir_psst()
 {
 	_resultName_psst="$1"
 
-	# We cannot use a sub shell for this function as we need to register the
-	# trap in the main shell, otherwise it would execute when the sub shell
+	# We cannot use a subshell for this function as we need to register the
+	# trap in the main shell, otherwise it would execute when the subshell
 	# exits. Thus we need to be careful to not conflict when defining local
 	# variables and clean up on return.
 
@@ -43,7 +43,7 @@ tmpdir_psst()
 	assert_hasarg_psst "$_func_psst" "resultVarName" "$1"
 	unset _func_psst
 
-	# Also the caller cannot call this function in sub shell either for exactly
+	# Also the caller cannot call this function in subshell either for exactly
 	# the same reason. Thus the result is provided through a variable and the
 	# caller passes the desired name as input parameter.
 
