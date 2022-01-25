@@ -47,7 +47,7 @@ set -e
 
 # We need some temp storage location
 tmpDir="/tmp"
-tempdir_psst "tmpDir" || test_fail_psst $LINENO
+tmpdir_psst "tmpDir" || test_fail_psst $LINENO
 
 globDst="$tmpDir/glob_psst"
 

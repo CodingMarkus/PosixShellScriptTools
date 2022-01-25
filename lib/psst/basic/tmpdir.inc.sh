@@ -15,7 +15,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 
 ##
 # FUNCTION
-# 	tempdir_psst <resultVarName>
+# 	tmpdir_psst <resultVarName>
 #
 # SUMMARY
 # 	Create a temporary directoy that cleans automatically on script exit.
@@ -27,9 +27,9 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 #
 # SAMPLE
 # 	tmpDir="/tmp"
-#	tempdir_psst tmpDir
+#	tmpdir_psst tmpDir
 #
-tempdir_psst()
+tmpdir_psst()
 {
 	_resultName_psst="$1"
 
@@ -38,7 +38,7 @@ tempdir_psst()
 	# exits. Thus we need to be careful to not conflict when defining local
 	# variables and clean up on return.
 
-	_func_psst="tempdir_psst"
+	_func_psst="tmpdir_psst"
 	assert_argc_psst "$_func_psst" 1 $#
 	assert_hasarg_psst "$_func_psst" "resultVarName" "$1"
 	unset _func_psst

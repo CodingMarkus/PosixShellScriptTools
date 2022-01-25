@@ -57,7 +57,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
-	tempdir_psst "tmpDir"
+	tmpdir_psst "tmpDir"
 
 	printDst="$tmpDir/print_psst"
 	print_psst "This is a very long test sentence, that should be split" \
@@ -78,7 +78,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
-	tempdir_psst "tmpDir"
+	tmpdir_psst "tmpDir"
 
 	printDst="$tmpDir/print_psst"
 	print_i_psst 5 "This is a very long test sentence, that should be"    \

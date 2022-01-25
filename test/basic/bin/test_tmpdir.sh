@@ -16,22 +16,22 @@ fi
 
 # Must accept exactly one argument
 set +e
-( tempdir_psst 2>/dev/null )
+( tmpdir_psst 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
-( tempdir_psst 1 2  2>/dev/null )
+( tmpdir_psst 1 2  2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
 # Argument must not be empty
 set +e
-( tempdir_psst "" 2>/dev/null )
+( tmpdir_psst "" 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
 tmpDir=$(
 	tmpDir="/tmp"
-	tempdir_psst "tmpDir"
+	tmpdir_psst "tmpDir"
 
 	# Must not be empty
 	[ -n "$tmpDir" ] || test_fail_psst $LINENO
