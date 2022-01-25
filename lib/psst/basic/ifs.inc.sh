@@ -37,7 +37,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc.sh_"
 #
 set_ifs_psst()
 {
-	_newIFSValue_psst="$1"
+	#newIFSValue=$1
 
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
@@ -48,7 +48,7 @@ set_ifs_psst()
 	unset _func_psst
 
 	stack_push_psst "$IFS" "ifsStack_psst" || return 1
-	IFS="$_newIFSValue_psst"
+	IFS=$1
 
 	unset newIFSValue_psst
 }

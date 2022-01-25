@@ -28,6 +28,8 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc.sh_"
 #
 onexit_psst()
 {
+    #codeToEval=$1
+
     # We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.

@@ -31,9 +31,8 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _stack.inc.sh_"
 #
 stack_push_psst()
 {
-	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_newValue_psst="$1"
-	_stackName_psst="$2"
+	#newValue=$1
+	#stackName=$2
 
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
@@ -46,7 +45,7 @@ stack_push_psst()
 
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_stackCountName_psst="${_stackName_psst}__stackCount_psst"
+	_stackCountName_psst="${2}__stackCount_psst"
 
 	eval "_stackCount_psst=\$$_stackCountName_psst"
 	if [ -z "$_stackCount_psst" ]
@@ -54,14 +53,13 @@ stack_push_psst()
 		_stackCount_psst=0
 	fi
 
-	_stackItemName_psst="${_stackName_psst}__$_stackCount_psst"
+	_stackItemName_psst="${2}__$_stackCount_psst"
 	_stackItemName_psst="${_stackItemName_psst}__stackItem_psst"
 	_stackCount_psst=$(( _stackCount_psst + 1 ))
 
-	eval "$_stackItemName_psst=\"\$_newValue_psst\""
+	eval "$_stackItemName_psst=\"\$1\""
 	eval "$_stackCountName_psst=$_stackCount_psst"
 
-	unset _newValue_psst
 	unset _stackName_psst
 	unset _stackCountName_psst
 	unset _stackCount_psst
@@ -95,9 +93,8 @@ stack_push_psst()
 #
 stack_pop_psst()
 {
-	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_stackName_psst="$1"
-	_resultVarName_psst="$2"
+	# stackName=$1
+	# resultVarName=$2
 
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
@@ -110,14 +107,12 @@ stack_pop_psst()
 	unset _fun_psst
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_stackCountName_psst="${_stackName_psst}__stackCount_psst"
+	_stackCountName_psst="${1}__stackCount_psst"
 	eval "_stackCount_psst=\$$_stackCountName_psst"
 
 	if [ -z "$_stackCount_psst" ]
 	then
 		# Clean up and report error
-		unset _stackName_psst
-		unset _resultVarName_psst
 		unset _stackCountName_psst
 		unset _stackCount_psst
 		return 1
@@ -125,10 +120,10 @@ stack_pop_psst()
 
 	_stackCount_psst=$(( _stackCount_psst - 1 ))
 
-	_stackItemName_psst="${_stackName_psst}__$_stackCount_psst"
+	_stackItemName_psst="${1}__$_stackCount_psst"
 	_stackItemName_psst="${_stackItemName_psst}__stackItem_psst"
 
-	eval "$_resultVarName_psst=\"\$$_stackItemName_psst\""
+	eval "$2=\"\$$_stackItemName_psst\""
 	unset "$_stackItemName_psst"
 
 	if [ $_stackCount_psst -eq 0 ]
@@ -138,8 +133,6 @@ stack_pop_psst()
 		eval "$_stackCountName_psst=$_stackCount_psst"
 	fi
 
-	unset _stackName_psst
-	unset _resultVarName_psst
 	unset _stackCountName_psst
 	unset _stackCount_psst
 	unset _stackItemName_psst
@@ -169,16 +162,14 @@ stack_pop_psst()
 #
 stack_exists_psst()
 {
-	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_stackName_psst="$1"
+	#stackName=$1
 
 	# We cannot use a sub shell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_stackCountName_psst="${_stackName_psst}__stackCount_psst"
+	_stackCountName_psst="${1}__stackCount_psst"
 	eval "_stackCount_psst=\$$_stackCountName_psst"
-	unset _stackName_psst
 	unset _stackCountName_psst
 
 	if [ -n "$_stackCount_psst" ]
