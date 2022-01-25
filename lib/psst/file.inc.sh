@@ -26,6 +26,3 @@ fi
 
 # shellcheck source=file/glob.inc.sh
 . "$INCLUDE_PSST/file/glob.inc.sh"
-
-# shellcheck source=file/tempdir.inc.sh
-. "$INCLUDE_PSST/file/tempdir.inc.sh"

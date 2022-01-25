@@ -41,6 +41,7 @@ chr_psst "350"  >/dev/null || {
 	[ $? = 2 ] || test_fail_psst $LINENO
 }
 
+
 # Test some conversions
 [ "$( chr_psst 65 )" = "A" ] || test_fail_psst $LINENO
 [ "$( chr_psst 97 )" = "a" ] || test_fail_psst $LINENO

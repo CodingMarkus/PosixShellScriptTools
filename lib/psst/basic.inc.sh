@@ -41,5 +41,8 @@ fi
 # shellcheck source=basic/stack.inc.sh
 . "$INCLUDE_PSST/basic/stack.inc.sh"
 
+# shellcheck source=basic/tempdir.inc.sh
+. "$INCLUDE_PSST/basic/tempdir.inc.sh"
+
 # shellcheck source=basic/test.inc.sh
 . "$INCLUDE_PSST/basic/test.inc.sh"

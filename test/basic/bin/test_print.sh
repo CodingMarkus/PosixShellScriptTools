@@ -53,8 +53,8 @@ fi
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=15
 
-	# shellcheck source=../../../lib/psst/file.inc.sh
-	. "$INCLUDE_PSST/file.inc.sh"
+	# shellcheck source=../../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
 	tempdir_psst "tmpDir"
@@ -74,8 +74,8 @@ fi
 	# shellcheck disable=SC2030 disable=SC2031
 	export COLUMNS=20
 
-	# shellcheck source=../../../lib/psst/file.inc.sh
-	. "$INCLUDE_PSST/file.inc.sh"
+	# shellcheck source=../../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
 	tempdir_psst "tmpDir"

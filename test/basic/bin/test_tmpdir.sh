@@ -9,8 +9,8 @@ then
 	INCLUDE_PSST="$cmdBase/../../../lib/psst"
 fi
 
-# shellcheck source=../../../lib/psst/file.inc.sh
-. "$INCLUDE_PSST/file.inc.sh"
+# shellcheck source=../../../lib/psst/basic.inc.sh
+. "$INCLUDE_PSST/basic.inc.sh"
 
 # =============================================================================
 
