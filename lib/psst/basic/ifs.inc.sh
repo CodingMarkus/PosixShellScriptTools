@@ -18,13 +18,15 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc.sh_"
 
 ##
 # FUNCTION
-# 	set_ifs_psst <newValue>
+# 	set_ifs_psst [<newValue>]
 #
 # SUMMARY
-# 	Save the current IFS value to a stack and replace it with a new value.
+#	Save the current IFS value to a stack and replace it with a new value. New
+#	value can be
+#
 #
 # PARAMETERS
-# 	newValue: The new desired value for $IFS.
+# 	[newValue]: The new desired value for $IFS.
 #
 # RETURNS
 # 	0: Success.
