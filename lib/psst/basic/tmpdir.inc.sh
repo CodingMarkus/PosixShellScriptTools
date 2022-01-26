@@ -52,7 +52,7 @@ tmpdir_psst()
 	# shellcheck disable=2064 # Expand $tmpDir now, not on script exit
 	onexit_psst "rm -rf \"$_tmpDir_psst\""
 
-	eval "\$$1=\"\$_tmpDir_psst\""
+	eval "$1=$_tmpDir_psst"
 
 	unset _tmpDir_psst
 }
