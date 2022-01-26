@@ -41,7 +41,7 @@ stack_push_psst()
 	_func_psst="stack_push_psst"
 	assert_argc_psst "$_func_psst" 2 $#
 	assert_hasarg_psst "$_func_psst" "stackName" "$2"
-	unset _fun_psst
+	unset _func_psst
 
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
@@ -104,7 +104,7 @@ stack_pop_psst()
 	assert_argc_psst "$_func_psst" 2 $#
 	assert_hasarg_psst "$_func_psst" "stackName" "$1"
 	assert_hasarg_psst "$_func_psst" "resultVarName" "$2"
-	unset _fun_psst
+	unset _func_psst
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackCountName_psst="${1}__stackCount_psst"
