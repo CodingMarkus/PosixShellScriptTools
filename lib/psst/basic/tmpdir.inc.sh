@@ -18,7 +18,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 #	tmpdir_psst <resultVarName>
 #
 # SUMMARY
-#	Create a temporary directoy that cleans automatically on script exit.
+#	Create a temporary directory that cleans automatically on script exit.
 #	Argument is the name of a variable that shall contain the path to the
 #	created temporary directoy on return.
 #
@@ -31,7 +31,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 #
 tmpdir_psst()
 {
-	_resultName_psst="$1"
+	#resultName=$1
 
 	# We cannot use a subshell for this function as we need to register the
 	# trap in the main shell, otherwise it would execute when the subshell
@@ -52,9 +52,7 @@ tmpdir_psst()
 	# shellcheck disable=2064 # Expand $tmpDir now, not on script exit
 	onexit_psst "rm -rf \"$_tmpDir_psst\""
 
-	eval "$_resultName_psst=\"\$_tmpDir_psst\""
+	eval "\$$1=\"\$_tmpDir_psst\""
 
-	# Clean up to not leave any traces of this function call
 	unset _tmpDir_psst
-	unset _resultName_psst
 }
