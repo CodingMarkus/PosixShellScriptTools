@@ -48,9 +48,12 @@ conv_chr_psst "350"  >/dev/null || {
 [ "$( conv_chr_psst 32 )" = " " ] || test_fail_psst $LINENO
 
 [ "$( conv_chr_psst 10 )" = "" ] || test_fail_psst $LINENO
-conv_chr_psst "10"  >/dev/null || {
+if conv_chr_psst "10"  >/dev/null
+then
+	test_fail_psst $LINENO
+else
 	[ $? = 3 ] || test_fail_psst $LINENO
-}
+fi
 
 
 # =============================================================================
@@ -66,15 +69,21 @@ set +e
 set -e
 
 # Argument must not be empty
-conv_ord_psst "" || {
+if conv_ord_psst ""
+then
+	test_fail_psst $LINENO
+else
 	[ $? = 1 ] || test_fail_psst $LINENO
-}
+fi
 
 # Argument must be single character
-conv_ord_psst "12" || {
-	[ $? = 2 ] || test_fail_psst $LINENO
-}
 
+if conv_ord_psst "12"
+then
+	test_fail_psst $LINENO
+else
+	[ $? = 2 ] || test_fail_psst $LINENO
+fi
 
 # Test some conversions
 [ "$( conv_ord_psst A )" = 65 ] || test_fail_psst $LINENO
