@@ -18,6 +18,8 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _globals.inc.sh_"
 #
 NL_CHAR_PSST=$( printf "\n_" )
 NL_CHAR_PSST=${NL_CHAR_PSST%_}
+# shellcheck disable=SC2034
+readonly NL_CHAR_PSST
 
 
 ##
@@ -29,6 +31,8 @@ NL_CHAR_PSST=${NL_CHAR_PSST%_}
 #
 # shellcheck disable=SC2034
 FS_CHAR_PSST=$( printf "\34" )
+# shellcheck disable=SC2034
+readonly FS_CHAR_PSST
 
 ##
 # CONSTANT
