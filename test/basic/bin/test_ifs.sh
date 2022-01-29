@@ -16,20 +16,17 @@ fi
 
 # set_ifs must accept exactly one argument
 set +e
-( abspath_psst 2>/dev/null )
+( ifs_set_psst 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
-( abspath_psst 1 2  2>/dev/null )
+( ifs_set_psst 1 2  2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
 
-# restore_ifs_psst must accept exactly no argument
+# ifs_restore must accept exactly no argument
 set +e
-( abspath_psst 2>/dev/null )
-[ $? = 127 ] || test_fail_psst $LINENO
-
-( abspath_psst 1 2  2>/dev/null )
+( ifs_restore_psst 1 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
@@ -38,46 +35,46 @@ set -e
 # Test push, pop
 oldIFS="$IFS"
 
-set_ifs_psst "a" || test_fail_psst $LINENO
+ifs_set_psst "a" || test_fail_psst $LINENO
 test "$IFS" == "a" || test_fail_psst $LINENO
 
-restore_ifs_psst
+ifs_restore_psst
 test "$IFS" = "$oldIFS" || test_fail_psst $LINENO
 
 
 # Test push, push, pop, pop
 oldIFS="$IFS"
 
-set_ifs_psst "a" || test_fail_psst $LINENO
+ifs_set_psst "a" || test_fail_psst $LINENO
 test "$IFS" == "a" || test_fail_psst $LINENO
 
-set_ifs_psst "b" || test_fail_psst $LINENO
+ifs_set_psst "b" || test_fail_psst $LINENO
 test "$IFS" == "b" || test_fail_psst $LINENO
 
-restore_ifs_psst
+ifs_restore_psst
 test "$IFS" == "a" || test_fail_psst $LINENO
 
-restore_ifs_psst
+ifs_restore_psst
 test "$IFS" = "$oldIFS" || test_fail_psst $LINENO
 
 
 # Test push, push, pop, push, pop, pop
 oldIFS="$IFS"
 
-set_ifs_psst "a" || test_fail_psst $LINENO
+ifs_set_psst "a" || test_fail_psst $LINENO
 test "$IFS" == "a" || test_fail_psst $LINENO
 
-set_ifs_psst "b" || test_fail_psst $LINENO
+ifs_set_psst "b" || test_fail_psst $LINENO
 test "$IFS" == "b" || test_fail_psst $LINENO
 
-restore_ifs_psst
+ifs_restore_psst
 test "$IFS" == "a" || test_fail_psst $LINENO
 
-set_ifs_psst "c" || test_fail_psst $LINENO
+ifs_set_psst "c" || test_fail_psst $LINENO
 test "$IFS" == "c" || test_fail_psst $LINENO
 
-restore_ifs_psst
+ifs_restore_psst
 test "$IFS" == "a" || test_fail_psst $LINENO
 
-restore_ifs_psst
+ifs_restore_psst
 test "$IFS" = "$oldIFS" || test_fail_psst $LINENO
