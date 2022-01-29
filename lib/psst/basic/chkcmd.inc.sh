@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_chkcmd.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _chkcmd.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _chkcmd.inc.sh_"
 
 
 # shellcheck source=assert.inc.sh
@@ -40,7 +40,7 @@ chkcmd_psst()
 	assert_minargc_psst "$func" 1 $#
 	assert_hasarg_psst "$func" "cmd" "$1"
 
-	while [ -n "$1" ]; do
+	while [ -n "${1-}" ]; do
 		if ! command -v "$1" >/dev/null; then
 			return 1
 		fi

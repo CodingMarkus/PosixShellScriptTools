@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_assert.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _assert.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _assert.inc.sh_"
 
 
 ##
@@ -69,11 +69,9 @@ assert_argc_psst()
 		exit 127
 	fi
 
-	_func_psst="assert_argc_psst"
-	assert_hasarg_psst "$_func_psst" "func" "$1"
-	assert_hasarg_psst "$_func_psst" "expected" "$2"
-	assert_hasarg_psst "$_func_psst" "actual" "$3"
-	unset _func_psst
+	assert_hasarg_psst "assert_argc_psst" "func" "$1"
+	assert_hasarg_psst "assert_argc_psst" "expected" "$2"
+	assert_hasarg_psst "assert_argc_psst" "actual" "$3"
 
 	if [ "$2" -ne "$3" ]
 	then
@@ -108,12 +106,10 @@ assert_minargc_psst()
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 
-	_func_psst="assert_minargc_psst"
-	assert_argc_psst "$_func_psst" 3 $#
-	assert_hasarg_psst "$_func_psst" "func" "$1"
-	assert_hasarg_psst "$_func_psst" "min" "$2"
-	assert_hasarg_psst "$_func_psst" "actual" "$3"
-	unset _func_psst
+	assert_argc_psst "assert_minargc_psst" 3 $#
+	assert_hasarg_psst "assert_minargc_psst" "func" "$1"
+	assert_hasarg_psst "assert_minargc_psst" "min" "$2"
+	assert_hasarg_psst "assert_minargc_psst" "actual" "$3"
 
 	if [ "$2" -gt "$3" ]
 	then
@@ -148,12 +144,10 @@ assert_maxargc_psst()
 	# shell in case an assertion is thrown. Thus we need to be careful to not
 	# conflict when defining local variables.
 
-	_func_psst="assert_maxargc_psst"
-	assert_argc_psst "$_func_psst" 3 $#
-	assert_hasarg_psst "$_func_psst" "func" "$1"
-	assert_hasarg_psst "$_func_psst" "max" "$2"
-	assert_hasarg_psst "$_func_psst" "actual" "$3"
-	unset _func_psst
+	assert_argc_psst "assert_maxargc_psst" 3 $#
+	assert_hasarg_psst "assert_maxargc_psst" "func" "$1"
+	assert_hasarg_psst "assert_maxargc_psst" "max" "$2"
+	assert_hasarg_psst "assert_maxargc_psst" "actual" "$3"
 
 	if [ "$2" -lt "$3" ]
 	then
@@ -203,7 +197,7 @@ assert_hasarg_psst()
 	fi
 
 	if { [ $# = 3 ] && [ -z "$3" ] ; } \
-		|| { [ $# = 2 ] && [ -z "$(eval "echo \$$2")" ] ; }
+		|| { [ $# = 2 ] && [ -z "$( eval "printf '%s' \"\${$2-}\"" )" ] ; }
 	then
 		printf "%s: %s of %s must not be empty!\n" \
 			"Assertion fail" "Argument \"$2\"" "function \"$1\"" >&2

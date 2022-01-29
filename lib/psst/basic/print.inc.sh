@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_print.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _print.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _print.inc.sh_"
 
 
 # shellcheck source=globals.inc.sh
@@ -69,12 +69,12 @@ print_psst()
 #
 print_i_psst()
 (
-	indent="$1"
-	shift
-
 	func="print_i_psst"
 	assert_minargc_psst "$func" 1 $#
 	assert_hasarg_psst "$func" "indent" "$1"
+
+	indent="$1"
+	shift
 
 	IFS=""
 	string="$*"

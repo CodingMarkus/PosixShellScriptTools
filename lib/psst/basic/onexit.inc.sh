@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_onexit.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _onexit.inc.sh_"
 
 
 # shellcheck source=stack.inc.sh
@@ -28,16 +28,15 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _onexit.inc.sh_"
 #
 onexit_psst()
 {
-    #codeToEval=$1
-
     # We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_func_psst="onexit_psst"
-	assert_argc_psst "$_func_psst" 1 $#
-	assert_hasarg_psst "$_func_psst" "codeToEval" "$1"
+	assert_argc_psst "onexit_psst" 1 $#
+	assert_hasarg_psst "onexit_psst" "codeToEval" "$1"
     unset _func_psst
+
+    #codeToEval=$1
 
     if ! stack_exists_psst "onExitStack_psst"
     then

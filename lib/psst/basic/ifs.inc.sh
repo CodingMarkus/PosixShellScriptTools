@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_ifs.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _ifs.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _ifs.inc.sh_"
 
 
 # shellcheck source=assert.inc.sh
@@ -43,9 +43,7 @@ ifs_set_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_func_psst="ifs_set_psst"
-	assert_argc_psst "$_func_psst" 1 $#
-	unset _func_psst
+	assert_argc_psst "ifs_set_psst" 1 $#
 
 	stack_push_psst "$IFS" "ifsStack_psst" || return 1
 	IFS=$1
@@ -72,8 +70,7 @@ ifs_restore_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_func_psst="ifs_restore_psst"
-	assert_argc_psst "$_func_psst" 0 $#
+	assert_argc_psst "ifs_restore_psst" 0 $#
 	unset _func_psst
 
 	if ! stack_pop_psst "ifsStack_psst" IFS

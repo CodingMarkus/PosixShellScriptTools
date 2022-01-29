@@ -1,16 +1,16 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_basic.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _basic.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _basic.inc.sh_"
 
 
 # Ensure INCLUDE_PSST is set
-if [ -z "$INCLUDE_PSST" ]
+if [ -z "${INCLUDE_PSST-}" ]
 then
 	echo "INCLUDE_PSST not set!" >&2
 	exit 1

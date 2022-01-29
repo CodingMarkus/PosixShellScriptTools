@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_abspath.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _abspath.inc.sh_"
 
 
 # shellcheck source=../basic/assert.inc.sh
@@ -35,11 +35,11 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _abspath.inc.sh_"
 #
 abspath_psst()
 (
-	path=$1
-
 	func="abspath_psst"
 	assert_argc_psst "$func" 1 $#
 	assert_hasarg_psst "$func" "path" "$1"
+
+	path=$1
 
 	if [ ! -e "$path" ]; then
 		return 1

@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_tempdir.inc_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _tempdir.inc_"
 
 
 # shellcheck source=../basic/onexit.inc.sh
@@ -31,21 +31,19 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _tempdir.inc_"
 #
 tmpdir_psst()
 {
-	#resultName=$1
-
 	# We cannot use a subshell for this function as we need to register the
 	# trap in the main shell, otherwise it would execute when the subshell
 	# exits. Thus we need to be careful to not conflict when defining local
 	# variables and clean up on return.
-
-	_func_psst="tmpdir_psst"
-	assert_argc_psst "$_func_psst" 1 $#
-	assert_hasarg_psst "$_func_psst" "resultVarName" "$1"
-	unset _func_psst
-
+	#
 	# Also the caller cannot call this function in subshell either for exactly
 	# the same reason. Thus the result is provided through a variable and the
 	# caller passes the desired name as input parameter.
+
+	assert_argc_psst "tmpdir_psst" 1 $#
+	assert_hasarg_psst "tmpdir_psst" "resultVarName" "$1"
+
+	#resultName=$1
 
 	_tmpDir_psst=$( mktemp -d )
 

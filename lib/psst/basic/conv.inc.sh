@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_conv.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _conv.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _conv.inc.sh_"
 
 
 # shellcheck source=test.inc.sh
@@ -38,11 +38,11 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _conv.inc.sh_"
 #
 conv_chr_psst()
 (
-	charCode=$1
+	func="chr_psst"
+	assert_argc_psst "$func" 1 $#
+	assert_hasarg_psst "$func" "charCode" "$1"
 
-	func_psst="chr_psst"
-	assert_argc_psst "$func_psst" 1 $#
-	assert_hasarg_psst "$func_psst" "charCode" "$charCode"
+	charCode=$1
 
 	test_is_int_psst "$charCode" || return 1
 	{ [ "$charCode" -lt 0 ] || [ "$charCode" -gt 255 ]; } && return 2
@@ -78,10 +78,10 @@ conv_chr_psst()
 #
 conv_ord_psst()
 (
-	char=$1
-
 	func_psst="ord_psst"
 	assert_argc_psst "$func_psst" 1 $#
+
+	char=$1
 
 	[ -n "$char" ] || return 1
 	[ ${#char} -eq 1 ] || return 2

@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_glob.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _glob.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _glob.inc.sh_"
 
 
 # shellcheck source=../basic/assert.inc.sh
@@ -75,12 +75,12 @@ glob_psst()
 #
 glob_max_psst()
 (
-	limit="$1"
-
 	func="glob_psst"
 	assert_minargc_psst "$func" 2 $#
-	assert_hasarg_psst "$func" "limit" "$limit"
+	assert_hasarg_psst "$func" "limit" "$1"
 	assert_hasarg_psst "$func" "filter" "$2"
+
+	limit="$1"
 
 	shift
 	IFS=""

@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_esc.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _esc.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _esc.inc.sh_"
 
 
 # shellcheck source=assert.inc.sh
@@ -35,10 +35,10 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _esc.inc.sh_"
 #
 esc_for_sq_psst()
 (
-	value=$1
-
 	func="esc_for_sq_psst"
 	assert_argc_psst "$func" 1 $#
+
+	value=$1
 
 	printf "%s" "$value" |  sed "s/'/'\\\''/g"
 )

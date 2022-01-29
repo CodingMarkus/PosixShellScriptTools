@@ -2,6 +2,8 @@
 
 # Exit at once if a command fails and the error isn't caught
 set -e
+# Exit at once if an unset variable is attempted to be expanded
+set -u
 
 cmdBase=$( dirname "$0" )
 

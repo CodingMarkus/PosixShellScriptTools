@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
 # Double include protection
-case "$INCLUDE_SEEN_PSST" in
+case "${INCLUDE_SEEN_PSST-}" in
 	*_stack.inc.sh_*)
 		return
 		;;
 esac
-INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _stack.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _stack.inc.sh_"
 
 
 ##
@@ -31,23 +31,20 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _stack.inc.sh_"
 #
 stack_push_psst()
 {
-	#newValue=$1
-	#stackName=$2
-
 	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_func_psst="stack_push_psst"
-	assert_argc_psst "$_func_psst" 2 $#
-	assert_hasarg_psst "$_func_psst" "stackName" "$2"
-	unset _func_psst
+	assert_argc_psst "stack_push_psst" 2 $#
+	assert_hasarg_psst "stack_push_psst" "stackName" "$2"
 
+	#newValue=$1
+	#stackName=$2
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackCountName_psst="${2}__stackCount_psst"
 
-	eval "_stackCount_psst=\$$_stackCountName_psst"
+	eval "_stackCount_psst=\${$_stackCountName_psst-}"
 	if [ -z "$_stackCount_psst" ]
 	then
 		_stackCount_psst=0
@@ -93,22 +90,20 @@ stack_push_psst()
 #
 stack_pop_psst()
 {
-	# stackName=$1
-	# resultVarName=$2
-
 	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_func_psst="stack_pop_psst"
-	assert_argc_psst "$_func_psst" 2 $#
-	assert_hasarg_psst "$_func_psst" "stackName" "$1"
-	assert_hasarg_psst "$_func_psst" "resultVarName" "$2"
-	unset _func_psst
+	assert_argc_psst "stack_pop_psst" 2 $#
+	assert_hasarg_psst "stack_pop_psst" "stackName" "$1"
+	assert_hasarg_psst "stack_pop_psst" "resultVarName" "$2"
+
+	# stackName=$1
+	# resultVarName=$2
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
 	_stackCountName_psst="${1}__stackCount_psst"
-	eval "_stackCount_psst=\$$_stackCountName_psst"
+	eval "_stackCount_psst=\${$_stackCountName_psst-}"
 
 	if [ -z "$_stackCount_psst" ]
 	then
@@ -162,17 +157,17 @@ stack_pop_psst()
 #
 stack_exists_psst()
 {
-	#stackName=$1
-
 	# We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
 	_stackCountName_psst="${1}__stackCount_psst"
-	eval "_stackCount_psst=\$$_stackCountName_psst"
+	eval "_stackCount_psst=\${$_stackCountName_psst-}"
 	unset _stackCountName_psst
 
-	if [ -n "$_stackCount_psst" ]
+	#stackName=$1
+
+	if [ -n "${_stackCount_psst-}" ]
 	then
 		unset _stackCount_psst
 		return 0
