@@ -9,19 +9,28 @@ then
 	INCLUDE_PSST="$cmdBase/../../../lib/psst"
 fi
 
+
 # =============================================================================
 
-# print_i must accept at least one argument
-set +e
-( print_i_psst 2>/dev/null )
-[ $? = 127 ] || test_fail_psst $LINENO
-set -e
+(
+	# shellcheck disable=SC2030 disable=SC2031
+	export COLUMNS=30
 
-# Argument must not be empty
-set +e
-( print_i_psst "" 2>/dev/null )
-[ $? = 127 ] || test_fail_psst $LINENO
-set -e
+	# shellcheck source=../../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
+
+	# print_i must accept at least one argument
+	set +e
+	( print_i_psst 2>/dev/null )
+	[ $? = 127 ] || test_fail_psst $LINENO
+	set -e
+
+	# Argument must not be empty
+	set +e
+	( print_i_psst "" 2>/dev/null )
+	[ $? = 127 ] || test_fail_psst $LINENO
+	set -e
+)
 
 
 # Must respect columns setting
@@ -57,7 +66,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
-	tmpdir_psst "tmpDir"
+	tmpdir_psst tmpDir
 
 	printDst="$tmpDir/print_psst"
 	print_psst "This is a very long test sentence, that should be split" \
@@ -78,7 +87,7 @@ fi
 	. "$INCLUDE_PSST/basic.inc.sh"
 
 	tmpDir="/tmp"
-	tmpdir_psst "tmpDir"
+	tmpdir_psst tmpDir
 
 	printDst="$tmpDir/print_psst"
 	print_i_psst 5 "This is a very long test sentence, that should be"    \

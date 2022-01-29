@@ -11,17 +11,25 @@ fi
 
 # =============================================================================
 
-# perror_i must accept at least one argument
-set +e
-( perror_i_psst 2>/dev/null )
-[ $? = 127 ] || test_fail_psst $LINENO
-set -e
+(
+	# shellcheck disable=SC2030 disable=SC2031
+	export COLUMNS=30
 
-# Argument must not be empty
-set +e
-( perror_i_psst "" 2>/dev/null )
-[ $? = 127 ] || test_fail_psst $LINENO
-set -e
+	# shellcheck source=../../../lib/psst/basic.inc.sh
+	. "$INCLUDE_PSST/basic.inc.sh"
+
+	# perror_i must accept at least one argument
+	set +e
+	( perror_i_psst 2>/dev/null )
+	[ $? = 127 ] || test_fail_psst $LINENO
+	set -e
+
+	# Argument must not be empty
+	set +e
+	( perror_i_psst "" 2>/dev/null )
+	[ $? = 127 ] || test_fail_psst $LINENO
+	set -e
+)
 
 
 # Must respect columns setting
