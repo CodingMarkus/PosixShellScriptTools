@@ -23,6 +23,9 @@ fi
 # shellcheck source=basic/chkcmd.inc.sh
 . "$INCLUDE_PSST/basic/chkcmd.inc.sh"
 
+# shellcheck source=basic/esc.inc.sh
+. "$INCLUDE_PSST/basic/esc.inc.sh"
+
 # shellcheck source=basic/conv.inc.sh
 . "$INCLUDE_PSST/basic/conv.inc.sh"
 

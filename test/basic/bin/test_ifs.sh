@@ -31,7 +31,6 @@ set +e
 set -e
 
 
-
 # Test push, pop
 oldIFS="$IFS"
 
