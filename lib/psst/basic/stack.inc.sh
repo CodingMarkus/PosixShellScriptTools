@@ -86,7 +86,7 @@ stack_push_psst()
 #	1: No stack with that name has been found.
 #
 # SAMPLE
-#	if stack_pop_psst "someStackName" "myResultVar"
+#	if stack_pop_psst "someStackName" myResultVar
 #	then
 #		# Do something with $myResultVar
 #	fi

@@ -22,7 +22,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _chkcmd.inc.sh_"
 #	from within a script.
 #
 # PARAMETERS
-#	cmd: Command.
+#	[cmd]*: Command to check for.
 #
 # RETURNS
 #	0: All commands can be called.

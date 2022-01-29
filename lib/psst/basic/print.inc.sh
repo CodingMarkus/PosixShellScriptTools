@@ -23,7 +23,7 @@ INCLUDE_SEEN_PSST="$INCLUDE_SEEN_PSST _print.inc.sh_"
 #	stdout if no argument is given. Will try to break lines on word boundaries.
 #
 # PARAMETERS
-#	[arg]: String value to print.
+#	[arg]*: String value to print.
 #
 # OUTPUT
 #	stdout: Formatted text that honors terminal width.
@@ -59,7 +59,7 @@ print_psst()
 #
 # PARAMETERS
 #	indent: Number of spaces in front of every new line.
-#	[arg]: String value to print.
+#	[arg]*: String value to print.
 #
 # OUTPUT
 #	stdout: Formatted text width indention that honors terminal width.
