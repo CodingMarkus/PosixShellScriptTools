@@ -31,7 +31,7 @@ set -e
 
 tmpDir=$(
 	tmpDir="/tmp"
-	tmpdir_psst "tmpDir"
+	tmpdir_psst tmpDir
 
 	# Must not be empty
 	[ -n "$tmpDir" ] || test_fail_psst $LINENO
