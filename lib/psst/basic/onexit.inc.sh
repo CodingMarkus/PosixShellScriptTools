@@ -69,6 +69,8 @@ onexit_psst()
 #
 __onexit_run_psst()
 {
+	# In case of an error, just keep going!
+	set +e
 
     # We cannot use a subshell for this function as we need to register the
 	# variables in the main shell. Thus we need to be careful to not conflict
