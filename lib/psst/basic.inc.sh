@@ -43,6 +43,9 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:basic:"
 # shellcheck source=basic/print.inc.sh
 . "$INCLUDE_PSST/basic/print.inc.sh"
 
+# shellcheck source=basic/proc.inc.sh
+. "$INCLUDE_PSST/basic/proc.inc.sh"
+
 # shellcheck source=basic/stack.inc.sh
 . "$INCLUDE_PSST/basic/stack.inc.sh"
 
