@@ -33,7 +33,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _ifs.inc.sh_"
 #	1: Current $IFS value could not be saved.
 #
 # SAMPLE
-#	ifs_set_psst "$FS_CHAR_PSST"
+#	ifs_set_psst "$US_CHAR_PSST"
 #
 ifs_set_psst()
 {

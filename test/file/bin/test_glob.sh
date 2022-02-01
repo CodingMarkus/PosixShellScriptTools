@@ -56,21 +56,21 @@ globDst="$tmpDir/glob_psst"
 
 # Test globbing is correct
 glob_psst "../data/glob/testdir/*" \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob.txt" \
 	|| test_fail_psst $LINENO
 
 
 glob_psst "../data/glob/testdir/*.txt" \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_txt.txt" \
 	|| test_fail_psst $LINENO
 
 
 glob_psst "../data/glob/testdir/*.space" \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_space.txt" \
 	|| test_fail_psst $LINENO
@@ -78,7 +78,7 @@ cmp -s "$globDst" "../data/glob/glob_space.txt" \
 
 glob_psst "../data/glob/testdir/*.space" \
 	"../data/glob/testdir/*.txt"         \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_txt_space.txt" \
 	|| test_fail_psst $LINENO
@@ -87,21 +87,21 @@ cmp -s "$globDst" "../data/glob/glob_txt_space.txt" \
 
 # Test globbing max is correct
 glob_max_psst 3 "../data/glob/testdir/*" \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_3.txt" \
 	|| test_fail_psst $LINENO
 
 
 glob_max_psst 3 "../data/glob/testdir/*.txt" \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_txt_3.txt" \
 	|| test_fail_psst $LINENO
 
 
 glob_max_psst 3 "../data/glob/testdir/*.space" \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_space_3.txt" \
 	|| test_fail_psst $LINENO
@@ -109,7 +109,7 @@ cmp -s "$globDst" "../data/glob/glob_space_3.txt" \
 
 glob_max_psst 3 "../data/glob/testdir/*.space" \
 	"../data/glob/testdir/*.txt"               \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "../data/glob/glob_space_3.txt" \
 	|| test_fail_psst $LINENO
@@ -117,7 +117,7 @@ cmp -s "$globDst" "../data/glob/glob_space_3.txt" \
 
 glob_max_psst 3 "../data/glob/testdir/*.txt" \
 	"../data/glob/testdir/*.space"           \
-	| tr "$FS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
+	| tr "$RS_CHAR_PSST" "$NL_CHAR_PSST" >"$globDst"
 
 cmp -s "$globDst" "$cmdBase/../data/glob/glob_txt_3.txt" \
 	|| test_fail_psst $LINENO

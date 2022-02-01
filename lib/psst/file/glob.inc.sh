@@ -30,7 +30,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _glob.inc.sh_"
 #	filter: Globbing pattern.
 #
 # OUTPUT
-#	stdout: Globbed files separated by FS (`$FS_CHAR_PSST`).
+#	stdout: Globbed files separated by RS (`$RS_CHAR_PSST`).
 #
 # SAMPLE
 #	globbed=$( glob_psst "$somePath/*.txt" "/tmp/*.tmp" )
@@ -49,7 +49,7 @@ glob_psst()
 		if [ -e "$f" ]
 		then
 			printf "%s%s" "$separator" "$f"
-			separator=$FS_CHAR_PSST
+			separator=$RS_CHAR_PSST
 		fi
 	done
 )
@@ -68,7 +68,7 @@ glob_psst()
 #	filter: Globbing pattern.
 #
 # OUTPUT
-#	stdout: Globbed files separated by NUL (`$FS_CHAR_PSST`).
+#	stdout: Globbed files separated by RS (`$RS_CHAR_PSST`).
 #
 # SAMPLE
 #	globbed=$( glob_psst 5 "$somePath/*.txt" "/tmp/*.tmp" )
@@ -92,7 +92,7 @@ glob_max_psst()
 		if [ -e "$f" ]
 		then
 			printf "%s%s" "$separator" "$f"
-			separator=$FS_CHAR_PSST
+			separator=$RS_CHAR_PSST
 			count=$(( count + 1 ))
 			if [ $count -ge "$limit" ]
 			then
