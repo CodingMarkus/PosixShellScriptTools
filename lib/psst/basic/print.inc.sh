@@ -9,8 +9,8 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _print.inc.sh_"
 
 
-# shellcheck source=globals.inc.sh
-. "$INCLUDE_PSST/basic/globals.inc.sh"
+# shellcheck source=global.inc.sh
+. "$INCLUDE_PSST/basic/global.inc.sh"
 
 
 ##
@@ -40,7 +40,7 @@ print_psst()
 	string="$*"
 
 	lines=$( printf "%s\n" "$string"        \
-		| fold -w "$TERMINAL_WIDTH_PSST" -s \
+		| fold -w "$TERM_WIDTH_PSST" -s \
 		| sed "s/ $//"
 	)
 	printf "%s\n" "$lines"
@@ -79,7 +79,7 @@ print_i_psst()
 	IFS=""
 	string="$*"
 
-	cols=$(( TERMINAL_WIDTH_PSST - indent ))
+	cols=$(( TERM_WIDTH_PSST - indent ))
 	lines=$( printf "%s\n" "$string" \
 		| fold -w "$cols" -s         \
 		| sed "s/ $//"

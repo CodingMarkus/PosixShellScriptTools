@@ -43,7 +43,7 @@ fi
 	# shellcheck source=../../../lib/psst/basic.inc.sh
 	. "$INCLUDE_PSST/basic.inc.sh"
 
-	[ "$TERMINAL_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
+	[ "$TERM_WIDTH_PSST" = "30" ] || test_fail_psst $LINENO
 )
 
 
@@ -54,7 +54,7 @@ then
 		# shellcheck source=../../../lib/psst/basic.inc.sh
 		. "$INCLUDE_PSST/basic.inc.sh"
 
-		[ "$TERMINAL_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
+		[ "$TERM_WIDTH_PSST" = "$( tput cols )" ] || test_fail_psst $LINENO
 	)
 fi
 
