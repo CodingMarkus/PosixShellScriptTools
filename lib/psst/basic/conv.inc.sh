@@ -15,11 +15,14 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _conv.inc.sh_"
 
 ##
 # SUBPROCESS
-#	conv_chr_psst <charCode>
+#	conv_chr_psst <charCode> [<charCode>] [<charCode>] ...
 #
 # SUMMARY
 #	Returns character whose character code is `charCode`.
 #	E.g `65` becomes `A`, `97` becomes `a` and `32` becomes space.
+#
+#	If multiple character codes are passed, the resulting characters are
+#	returned as a concatinated string.
 #
 # PARAMETERS
 #	charCode: Character code of desired character.
@@ -31,7 +34,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _conv.inc.sh_"
 #   3: Character code is newline (`\n``), which cannot be captured.
 #
 # OUTPUT
-#	stdout: The characters whose code is `charCode`.
+#	stdout: The character whose code is `charCode`.
 #
 # SAMPLE
 #	digit9=$( chr_psst 57 )
@@ -39,36 +42,35 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _conv.inc.sh_"
 conv_chr_psst()
 (
 	func="chr_psst"
-	assert_argc_psst "$func" 1 $#
+	assert_minargc_psst "$func" 1 $#
 	assert_hasarg_psst "$func" "charCode" "$1"
 
-	charCode=$1
+	while [ -n "${1-}" ]
+	do
+		charCode=$1
+		test_is_int_psst "$charCode" || return 1
+		{ [ "$charCode" -lt 0 ] || [ "$charCode" -gt 255 ]; } && return 2
+		[ "$charCode" != "10" ] || return 3
 
-	test_is_int_psst "$charCode" || return 1
-	{ [ "$charCode" -lt 0 ] || [ "$charCode" -gt 255 ]; } && return 2
-	[ "$charCode" != "10" ] || return 3
-
-	pattern=$( printf "%03o" "$charCode" )
-	# shellcheck disable=SC2059
-	printf "\\${pattern}"
+		printf "%b" "$( printf '\%o' "$charCode" )"
+		shift
+	done
 )
 
 
 ##
 # SUBPROCESS
-#	conv_ord_psst <char>
+#	conv_ord_psst <chars>
 #
 # SUMMARY
 #	Returns character code of character.
 #	E.g `A` becomes `65`, `a` becomes `97`, and space becomes `32`.
 #
-# PARAMETERS
-#	char: Character whose code shall be returned.
+#	If multiple characters are passed, the resulting character codes are
+#	returned as a concatinated string separated by space.
 #
-# RETURNS
-#	0: Argument was a valid character.
-#   1: Argument contained zero characters.
-#	2: Argument contained more than one character.
+# PARAMETERS
+#	char: Characters whose code shall be returned.
 #
 # OUTPUT
 #	stdout: The character code of `char`.
@@ -78,13 +80,23 @@ conv_chr_psst()
 #
 conv_ord_psst()
 (
-	func_psst="ord_psst"
-	assert_argc_psst "$func_psst" 1 $#
+	func="ord_psst"
+	assert_argc_psst "$func" 1 $#
+	assert_hasarg_psst "$func" "chars" "$1"
 
-	char=$1
+	chars=$1
+	[ ${#chars} -eq 1 ] && { LC_CTYPE=C printf "%d" "'$chars"; return 0; }
 
-	[ -n "$char" ] || return 1
-	[ ${#char} -eq 1 ] || return 2
+	printf "%s" "$chars" | (
+		sep=
+		while read -r _unused_ octalValue <<EOF
+$( dd bs=1 count=1 2>/dev/null | od -b )
+EOF
+		do
+			[ -n "$octalValue" ] || return 0
+			LC_CTYPE=C printf "%s%d" "$sep" "0$octalValue"
+			sep=" "
+		done
+	)
 
-	LC_CTYPE=C printf "%d" "'$char"
 )
