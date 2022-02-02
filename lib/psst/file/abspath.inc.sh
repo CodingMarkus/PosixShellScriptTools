@@ -25,7 +25,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _abspath.inc.sh_"
 #
 # RETURNS
 #	0: Success.
-#	1: Path does not exists.
+#	2: Path does not exists.
 #
 # OUTPUT
 #	stdout: Absolute path on success.

@@ -26,7 +26,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _chkcmd.inc.sh_"
 #
 # RETURNS
 #	0: All commands can be called.
-#	1: At least one command cannot be called or was not found.
+#	2: At least one command cannot be called or was not found.
 #
 # SAMPLE
 #	if cmdchck_psst cmd1 cmd2 cmd3
@@ -42,7 +42,7 @@ chkcmd_psst()
 
 	while [ -n "${1-}" ]; do
 		if ! command -v "$1" >/dev/null; then
-			return 1
+			return 2
 		fi
 		shift
 	done

@@ -24,13 +24,12 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _ifs.inc.sh_"
 #	Save the current IFS value to a stack and replace it with a new value. New
 #	value can be
 #
-#
 # PARAMETERS
 #	[newValue]: The new desired value for $IFS.
 #
 # RETURNS
 #	0: Success.
-#	1: Current $IFS value could not be saved.
+#	2: Current $IFS value could not be saved.
 #
 # SAMPLE
 #	ifs_set_psst "$US_CHAR_PSST"
@@ -45,7 +44,7 @@ ifs_set_psst()
 
 	assert_argc_psst "ifs_set_psst" 1 $#
 
-	stack_push_psst "$IFS" "ifsStack_psst" || return 1
+	stack_push_psst "$IFS" "ifsStack_psst" || return 2
 	IFS=$1
 
 	unset newIFSValue_psst
@@ -60,7 +59,7 @@ ifs_set_psst()
 # SUMMARY
 #	Restore the last saved IFS value or set IFS to default if no value has been
 #	saved at all or all saved values have already been restored.
-##
+#
 # SAMPLE
 #	ifs_restore_psst
 #

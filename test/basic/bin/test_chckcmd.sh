@@ -38,7 +38,12 @@ chkcmd_psst "cd" || test_fail_psst $LINENO
 chkcmd_psst "cd" "ls" || test_fail_psst $LINENO
 
 # Fictional command should not be found
-! chkcmd_psst "__this_is_not_a_command" || test_fail_psst $LINENO
+if chkcmd_psst "__this_is_not_a_command"
+then
+	test_fail_psst $LINENO
+else
+	[ $? = 2 ] || test_fail_psst $LINENO
+fi
 
 # Multiple fictional command should not be found
 ! chkcmd_psst "__this_is_not_a_command" "__this_either__" \

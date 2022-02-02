@@ -51,7 +51,7 @@ test_fail_psst()
 #
 # RETURNS
 #	0: Yes, it is an integer.
-#	1: No, it isn't.
+#	2: No, it isn't.
 #
 # SAMPLE
 #	test_is_int_psst "abc" || echo "Not an int"
@@ -64,6 +64,6 @@ test_is_int_psst()
 	# We could use a subshell here but that would only make this test rather
 	# slow for no reason, so we go for speed.
 	case $1 in
- 	  	'' | *[!0123456789]*) return 1
+ 	  	'' | *[!0123456789]*) return 2
 	esac
 }
