@@ -32,12 +32,12 @@ set -e
 
 # Argument must be integer number
 conv_chr_psst "abc" >/dev/null || {
-	[ $? = 1 ] || test_fail_psst $LINENO
+	[ $? = 2 ] || test_fail_psst $LINENO
 }
 
 # Argument must be in valid range
 conv_chr_psst "350"  >/dev/null || {
-	[ $? = 2 ] || test_fail_psst $LINENO
+	[ $? = 3 ] || test_fail_psst $LINENO
 }
 
 
@@ -48,12 +48,12 @@ conv_chr_psst "350"  >/dev/null || {
 [ "$( conv_chr_psst 65 97 32 )" = "Aa " ] || test_fail_psst $LINENO
 
 
-[ "$( conv_chr_psst 10 )" = "" ] || test_fail_psst $LINENO
-if conv_chr_psst "10"  >/dev/null
+[ "$( conv_chr_psst 65 10 )" = "A" ] || test_fail_psst $LINENO
+if conv_chr_psst 65 10  >/dev/null
 then
 	test_fail_psst $LINENO
 else
-	[ $? = 3 ] || test_fail_psst $LINENO
+	[ $? = 4 ] || test_fail_psst $LINENO
 fi
 
 
@@ -82,3 +82,11 @@ set -e
 [ "$( conv_ord_psst "$NL_CHAR_PSST" )" = 10 ] || test_fail_psst $LINENO
 [ "$( conv_ord_psst "Aa " )" = "65 97 32" ] || test_fail_psst $LINENO
 [ "$( conv_ord_psst "A$NL_CHAR_PSST" )" = "65 10" ] || test_fail_psst $LINENO
+
+# =============================================================================
+# Test ord-chr roundtrip
+
+testStr="Hello World! How are you today?"
+testStr2=$( conv_ord_psst "$testStr" )
+testStr3=$( eval "conv_chr_psst $testStr2" )
+[ "$testStr" = "$testStr3" ] || test_fail_psst $LINENO
