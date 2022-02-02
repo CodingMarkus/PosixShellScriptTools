@@ -22,10 +22,6 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _stack.inc.sh_"
 #	newValue: Value to push on stack.
 #	stackName: Name of the stack (no spaces, only letters and underscore).
 #
-# RETURNS
-#	0: Success.
-#	1: Value could not be pushed to stack.
-#
 # SAMPLE
 #	stack_push_psst "$value" "someStackName"
 #
@@ -42,25 +38,19 @@ stack_push_psst()
 	#stackName=$2
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_stackCountName_psst="${2}__stackCount_psst"
+	_countName_stack_psst="${2}__count_stack_psst"
+	eval "_count_stack_psst=\${$_countName_stack_psst-0}"
 
-	eval "_stackCount_psst=\${$_stackCountName_psst-}"
-	if [ -z "$_stackCount_psst" ]
-	then
-		_stackCount_psst=0
-	fi
+	_itemName_stack_psst="${2}__${_count_stack_psst}_item_stack_psst"
+	_count_stack_psst=$(( _count_stack_psst + 1 ))
 
-	_stackItemName_psst="${2}__$_stackCount_psst"
-	_stackItemName_psst="${_stackItemName_psst}__stackItem_psst"
-	_stackCount_psst=$(( _stackCount_psst + 1 ))
-
-	eval "$_stackItemName_psst=\"\$1\""
-	eval "$_stackCountName_psst=$_stackCount_psst"
+	eval "$_itemName_stack_psst=\"\$1\""
+	eval "$_countName_stack_psst=$_count_stack_psst"
 
 	unset _stackName_psst
-	unset _stackCountName_psst
-	unset _stackCount_psst
-	unset _stackItemName_psst
+	unset _countName_stack_psst
+	unset _count_stack_psst
+	unset _itemName_stack_psst
 }
 
 
@@ -80,7 +70,7 @@ stack_push_psst()
 #
 # RETURNS
 #	0: Success.
-#	1: No stack with that name has been found.
+#	2: No stack with that name has been found.
 #
 # SAMPLE
 #	if stack_pop_psst "someStackName" myResultVar
@@ -102,35 +92,33 @@ stack_pop_psst()
 	# resultVarName=$2
 
 	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_stackCountName_psst="${1}__stackCount_psst"
-	eval "_stackCount_psst=\${$_stackCountName_psst-}"
+	_countName_stack_psst="${1}__count_stack_psst"
+	eval "_count_stack_psst=\${$_countName_stack_psst-}"
 
-	if [ -z "$_stackCount_psst" ]
+	if [ -z "$_count_stack_psst" ]
 	then
 		# Clean up and report error
-		unset _stackCountName_psst
-		unset _stackCount_psst
-		return 1
+		unset _countName_stack_psst
+		unset _count_stack_psst
+		return 2
 	fi
 
-	_stackCount_psst=$(( _stackCount_psst - 1 ))
+	_count_stack_psst=$(( _count_stack_psst - 1 ))
+	_itemName_stack_psst="${1}__${_count_stack_psst}_item_stack_psst"
 
-	_stackItemName_psst="${1}__$_stackCount_psst"
-	_stackItemName_psst="${_stackItemName_psst}__stackItem_psst"
+	eval "$2=\"\$$_itemName_stack_psst\""
+	unset "$_itemName_stack_psst"
 
-	eval "$2=\"\$$_stackItemName_psst\""
-	unset "$_stackItemName_psst"
-
-	if [ $_stackCount_psst -eq 0 ]
+	if [ $_count_stack_psst -eq 0 ]
 	then
-		unset "$_stackCountName_psst"
+		unset "$_countName_stack_psst"
 	else
-		eval "$_stackCountName_psst=$_stackCount_psst"
+		eval "$_countName_stack_psst=$_count_stack_psst"
 	fi
 
-	unset _stackCountName_psst
-	unset _stackCount_psst
-	unset _stackItemName_psst
+	unset _countName_stack_psst
+	unset _count_stack_psst
+	unset _itemName_stack_psst
 }
 
 
@@ -147,7 +135,7 @@ stack_pop_psst()
 #
 # RETURNS
 #	0: Stack does exist.
-#	1: Stack does not exist.
+#	2: Stack does not exist.
 #
 # SAMPLE
 #	if stack_exists_psst "someStackName"
@@ -161,18 +149,18 @@ stack_exists_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	_stackCountName_psst="${1}__stackCount_psst"
-	eval "_stackCount_psst=\${$_stackCountName_psst-}"
-	unset _stackCountName_psst
+	_countName_stack_psst="${1}__count_stack_psst"
+	eval "_count_stack_psst=\${$_countName_stack_psst-}"
+	unset _countName_stack_psst
 
 	#stackName=$1
 
-	if [ -n "${_stackCount_psst-}" ]
+	if [ -n "${_count_stack_psst-}" ]
 	then
-		unset _stackCount_psst
+		unset _count_stack_psst
 		return 0
 	fi
 
-	unset _stackCount_psst
-	return 1
+	unset _count_stack_psst
+	return 2
 }
