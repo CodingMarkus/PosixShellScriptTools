@@ -55,13 +55,18 @@ set -e
 
 # Test push creates and pops destroys
 ! stack_exists_psst "stack" || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
 
 stack_push_psst "1" "stack" || test_fail_psst $LINENO
 stack_exists_psst "stack" || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
 
 stack_pop_psst "stack" unused || test_fail_psst $LINENO
 ! stack_exists_psst "stack" ||  test_fail_psst $LINENO
-
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
 
 # Test only destroyed if empty
 ! stack_exists_psst "stack" ||  test_fail_psst $LINENO
@@ -88,9 +93,13 @@ test "$test1Res" = "a" || test_fail_psst $LINENO
 test2Res=
 stack_push_psst "a" test2 || test_fail_psst $LINENO
 stack_push_psst "b" test2 || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
 
 stack_pop_psst test2 test2Res || test_fail_psst $LINENO
 test "$test2Res" = "b" || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
 
 stack_pop_psst test2 test2Res || test_fail_psst $LINENO
 test "$test2Res" = "a" || test_fail_psst $LINENO
@@ -117,3 +126,7 @@ test "$test3Res" = "a" || test_fail_psst $LINENO
 test4Res=
 ! stack_pop_psst test4 test4Res ||  test_fail_psst $LINENO
 test -z "$test4Res" || test_fail_psst $LINENO
+
+
+# Verify that the gloabl namespace has not been polluted
+! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO

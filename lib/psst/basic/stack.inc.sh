@@ -2,11 +2,17 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_stack.inc.sh_*)
-		return
-		;;
+	*_stack_*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _stack.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_stack_"
+
+# Ensure INCLUDE_PSST is set
+[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+
+
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
+
 
 
 ##
@@ -47,7 +53,7 @@ stack_push_psst()
 	eval "$_itemName_stack_psst=\"\$1\""
 	eval "$_countName_stack_psst=$_count_stack_psst"
 
-	unset _stackName_psst
+	unset _stackName_stack_psst
 	unset _countName_stack_psst
 	unset _count_stack_psst
 	unset _itemName_stack_psst

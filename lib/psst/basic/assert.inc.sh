@@ -2,11 +2,9 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_assert.inc.sh_*)
-		return
-		;;
+	*_assert_*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _assert.inc.sh_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_assert_"
 
 
 ##

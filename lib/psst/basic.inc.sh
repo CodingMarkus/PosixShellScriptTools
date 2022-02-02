@@ -2,19 +2,12 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_basic.inc.sh_*)
-		return
-		;;
+	*_basic_*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-} _basic.inc.sh_"
-
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_basic_"
 
 # Ensure INCLUDE_PSST is set
-if [ -z "${INCLUDE_PSST-}" ]
-then
-	echo "INCLUDE_PSST not set!" >&2
-	exit 1
-fi
+[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
 
 
 # shellcheck source=basic/assert.inc.sh
