@@ -11,9 +11,14 @@ for test in                        \
 	"$cmdBase/basic/bin/"test_*.sh \
 	"$cmdBase/file/bin/"test_*.sh
 do
-	if ! ( cd "$( dirname "$test" )" ; eval "./$( basename "$test" )" )
-	then
-		echo "$test failed with exit code: $?" >&2
-		exit 1
-	fi
+	(
+		error=0
+		cd "$( dirname "$test" )"
+		"./$( basename "$test" )" || error=$?
+		if [ $error -ne 0 ]
+		then
+			echo "$test failed with exit code: $error" >&2
+			exit 1
+		fi
+	)
 done
