@@ -62,8 +62,8 @@ assert_argc_psst()
 
 	if [ $# -ne 3 ]
 	then
-		printf "Assertion fail: Function %s expects %s arguments, got %s!\n" \
-			assert_argc_psst 3 $# >&2
+		printf "%s: Function \"%s\" expects %s arguments, got %s!\n" \
+			"Assertion fail" assert_argc_psst 3 $# >&2
 		exit 127
 	fi
 
@@ -73,8 +73,8 @@ assert_argc_psst()
 
 	if [ "$2" -ne "$3" ]
 	then
-		printf "Assertion fail: Function %s expects %s arguments, got %s!\n" \
-			"$@" >&2
+		printf "%s: Function \"%s\" expects %s arguments, got %s!\n" \
+			"Assertion fail" "$@" >&2
 		exit 127
 	fi
 }
@@ -111,7 +111,7 @@ assert_minargc_psst()
 
 	if [ "$2" -gt "$3" ]
 	then
-		printf "%s: Function %s expects at least %s arguments, got %s!\n" \
+		printf "%s: Function \"%s\" expects at least %s arguments, got %s!\n" \
 			"Assertion fail" "$@" >&2
 		exit 127
 	fi
@@ -149,7 +149,7 @@ assert_maxargc_psst()
 
 	if [ "$2" -lt "$3" ]
 	then
-		printf "%s: Function %s expects at most %s arguments, got %s!\n" \
+		printf "%s: Function \"%s\" expects at most %s arguments, got %s!\n" \
 			"Assertion fail" "$@" >&2
 		exit 127
 	fi
@@ -202,4 +202,32 @@ assert_hasarg_psst()
 		exit 127
 	fi
 	return
+}
+
+
+
+##
+# FUNCTION
+#	assert_func_fail_psst <func> <msg>
+#
+# SUMMARY
+#	Prints `msg` to stderr and terminates current process with error 127,
+#	which is the highest possible error as values 128 and up are reserved
+#	for signals and lower values are used by functions as failure indicators.
+#
+# PARAMETERS
+#	msg: Message to print to stderr.
+#
+# SAMPLE
+#	[ "$index" -gt 0 ] || assert_func_fail_psst "$func" "Index must be > 0"
+#
+assert_func_fail_psst()
+{
+	# We cannot use a subshell for this function as we need to exit the main
+	# shell in case an assertion is thrown. Thus we need to be careful to not
+	# conflict when defining local variables.
+
+	#func=$1
+	#msg=$2
+	assert_fail_psst "Assertion in \"$1\" failed: $2"
 }
