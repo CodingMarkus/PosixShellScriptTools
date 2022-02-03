@@ -31,6 +31,9 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:basic:"
 # shellcheck source=basic/ifs.inc.sh
 . "$INCLUDE_PSST/basic/ifs.inc.sh"
 
+# shellcheck source=basic/list.inc.sh
+. "$INCLUDE_PSST/basic/list.inc.sh"
+
 # shellcheck source=basic/onexit.inc.sh
 . "$INCLUDE_PSST/basic/onexit.inc.sh"
 
