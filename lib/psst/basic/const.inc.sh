@@ -2,9 +2,9 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_const_*) return
+	*:const:*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_const_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:const:"
 
 
 ##

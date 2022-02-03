@@ -2,9 +2,9 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_tempdir_*) return
+	*:tempdir:*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_tempdir_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:tempdir:"
 
 # Ensure INCLUDE_PSST is set
 [ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }

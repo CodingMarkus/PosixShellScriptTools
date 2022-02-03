@@ -2,9 +2,9 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_chkcmd_*) return
+	*:chkcmd:*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_chkcmd_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:chkcmd:"
 
 # Ensure INCLUDE_PSST is set
 [ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }

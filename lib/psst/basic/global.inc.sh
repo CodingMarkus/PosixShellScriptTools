@@ -2,9 +2,9 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_global_*) return
+	*:global:*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_global_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:global:"
 
 
 ##

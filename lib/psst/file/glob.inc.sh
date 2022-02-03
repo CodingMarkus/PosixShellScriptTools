@@ -2,9 +2,9 @@
 
 # Double include protection
 case "${INCLUDE_SEEN_PSST-}" in
-	*_glob_*) return
+	*:glob:*) return
 esac
-INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_glob_"
+INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:glob:"
 
 # Ensure INCLUDE_PSST is set
 [ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
