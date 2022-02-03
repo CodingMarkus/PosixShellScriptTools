@@ -47,7 +47,7 @@ abspath_psst()
 		return 1
 	fi
 
-	file=""
+	file=
 	dir="$path"
 	if [ ! -d "$dir" ]; then
 		file=$( basename "$dir" )

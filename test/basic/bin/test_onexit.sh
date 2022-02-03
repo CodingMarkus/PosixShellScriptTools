@@ -27,7 +27,7 @@ set -e
 
 # Argument must not be empty
 set +e
-( onexit_psst "" 2>/dev/null )
+( onexit_psst '' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 

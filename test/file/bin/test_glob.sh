@@ -24,7 +24,7 @@ set -e
 
 # Argument must not be empty
 set +e
-( glob_psst "" 2>/dev/null )
+( glob_psst '' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
@@ -40,10 +40,10 @@ set -e
 
 # Arguments must not be empty
 set +e
-( glob_max_psst "" 1 2>/dev/null )
+( glob_max_psst '' 1 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
-( glob_max_psst 1 "" 2>/dev/null )
+( glob_max_psst 1 '' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 

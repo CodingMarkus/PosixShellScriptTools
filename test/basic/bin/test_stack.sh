@@ -27,10 +27,10 @@ set -e
 
 # Stack name must not be empty, value can be empty
 set +e
-( stack_push_psst "test" "" 2>/dev/null )
+( stack_push_psst test '' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
-( stack_push_psst "" "test" 2>/dev/null ) || test_fail_psst $LINENO
+( stack_push_psst '' test 2>/dev/null ) || test_fail_psst $LINENO
 set -e
 
 
@@ -45,10 +45,10 @@ set -e
 
 # Neither one may be empty
 set +e
-( stack_pop_psst "test" "" 2>/dev/null )
+( stack_pop_psst test '' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
-( stack_pop_psst "" "test" 2>/dev/null )
+( stack_pop_psst '' test 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 

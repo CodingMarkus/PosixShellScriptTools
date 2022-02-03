@@ -43,7 +43,7 @@ glob_psst()
 	assert_minargc_psst "$func" 1 $#
 	assert_hasarg_psst "$func" "filter" "$1"
 
-	IFS=""
+	IFS=
 	separator=
 	# shellcheck disable=SC2048 # We need globbing here!
 	for f in $*
@@ -85,7 +85,7 @@ glob_max_psst()
 	limit="$1"
 
 	shift
-	IFS=""
+	IFS=
 	count=0
 	separator=
 	# shellcheck disable=SC2048 # We need globbing here!

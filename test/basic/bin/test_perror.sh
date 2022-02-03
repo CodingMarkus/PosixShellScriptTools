@@ -28,7 +28,7 @@ fi
 
 	# Argument must not be empty
 	set +e
-	( perror_i_psst "" 2>/dev/null )
+	( perror_i_psst '' 2>/dev/null )
 	[ $? = 127 ] || test_fail_psst $LINENO
 	set -e
 )

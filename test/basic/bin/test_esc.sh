@@ -28,7 +28,7 @@ set -e
 
 
 # Test the encoding
-[ "$( esc_for_sq_psst "" )" = ""  ] || test_fail_psst $LINENO
+[ "$( esc_for_sq_psst '' )" = ''  ] || test_fail_psst $LINENO
 [ "$( esc_for_sq_psst "abc" )" = "abc"  ] || test_fail_psst $LINENO
 [ "$( esc_for_sq_psst "ab'cd" )" = "ab'\\''cd"  ] || test_fail_psst $LINENO
 [ "$( esc_for_sq_psst "'a'b" )" = "'\\''a'\\''b"  ] || test_fail_psst $LINENO

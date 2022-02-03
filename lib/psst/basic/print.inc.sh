@@ -38,10 +38,10 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}_print_"
 #
 print_psst()
 (
-	IFS=""
+	IFS=
 	string="$*"
 
-	lines=$( printf "%s\n" "$string"        \
+	lines=$( printf "%s\n" "$string" \
 		| fold -w "$TERM_WIDTH_PSST" -s \
 		| sed "s/ $//"
 	)
@@ -78,12 +78,12 @@ print_i_psst()
 	indent="$1"
 	shift
 
-	IFS=""
+	IFS=
 	string="$*"
 
 	cols=$(( TERM_WIDTH_PSST - indent ))
 	lines=$( printf "%s\n" "$string" \
-		| fold -w "$cols" -s         \
+		| fold -w "$cols" -s \
 		| sed "s/ $//"
 	)
 
@@ -91,6 +91,6 @@ print_i_psst()
 	for line in $lines
 	do
 		line=${line% }
-		printf "%*s%s\n" "$indent" "" "$line"
+		printf "%*s%s\n" "$indent" '' "$line"
 	done
 )
