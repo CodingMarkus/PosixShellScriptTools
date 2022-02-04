@@ -7,8 +7,14 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:onexit:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
+
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
+
+# shellcheck source=esc.inc.sh
+. "$INCLUDE_PSST/basic/esc.inc.sh"
 
 # shellcheck source=stack.inc.sh
 . "$INCLUDE_PSST/basic/stack.inc.sh"
@@ -33,30 +39,35 @@ onexit_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	assert_argc_psst "onexit_psst" 1 $#
-	assert_hasarg_psst "onexit_psst" "codeToEval" "$1"
-    unset _func_psst
+	assert_argc_psst 'onexit_psst' 1 $#
+	assert_hasarg_psst 'onexit_psst' 'codeToEval' "$1"
 
     #codeToEval=$1
 
-    if ! stack_exists_psst "onExitStack_psst"
+    if ! stack_exists_psst 'onExitStack_psst'
     then
-    	_oldtraps_psst=$(trap)
-        _oldexit_psst=$(echo "$_oldtraps_psst" \
+    	_oldtraps_onexit_psst=$( trap )
+        _oldexit_onexit_psst=$(
+            echo "$_oldtraps_onexit_psst" \
             | grep "EXIT$" \
-            | sed -E 's/^trap -- (.*) EXIT$/\1/')
+            | sed -E 's/^trap -- (.*) EXIT$/\1/'
+        )
 
-        if [ -n "$_oldexit_psst" ]
+        if [ -n "$_oldexit_onexit_psst" ]
             then
+           _oldexit_onexit_psst=$( esc_for_sq_psst "$_oldexit_onexit_psst" )
             # shellcheck disable=SC2064
-            trap "eval $_oldexit_psst ; __onexit_run_psst" EXIT
+            trap "eval '$_oldexit_onexit_psst' ; __onexit_run_psst" EXIT
         else
             # shellcheck disable=SC2064
-            trap "__onexit_run_psst" EXIT
+            trap '__onexit_run_psst' EXIT
         fi
+
+        unset _oldtraps_onexit_psst
+        unset _oldexit_onexit_psst
     fi
 
-    stack_push_psst "$1" "onExitStack_psst"
+    stack_push_psst 'onExitStack_psst' "$1"
 }
 
 
@@ -77,7 +88,7 @@ __onexit_run_psst()
 	# when defining local variables.
 
     _evalMe_psst=
-    while stack_pop_psst "onExitStack_psst" _evalMe_psst
+    while stack_pop_psst 'onExitStack_psst' _evalMe_psst
     do
         eval "$_evalMe_psst"
     done

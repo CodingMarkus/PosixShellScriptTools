@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:stack:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=assert.inc.sh
@@ -17,7 +17,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:stack:"
 
 ##
 # FUNCTION
-#	stack_push_psst <newValue> <stackName>
+#	stack_push_psst <stackName> <newValue>
 #
 # SUMMARY
 #	Pushes a value to a stack with a given name. If no stack of that name
@@ -25,11 +25,11 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:stack:"
 #	e.g. must not contain spaces.
 #
 # PARAMETERS
-#	newValue: Value to push on stack.
 #	stackName: Name of the stack (no spaces, only letters and underscore).
+#	newValue: Value to push on stack.
 #
 # SAMPLE
-#	stack_push_psst "$value" "someStackName"
+#	stack_push_psst 'someStackName' "$value"
 #
 stack_push_psst()
 {
@@ -37,20 +37,20 @@ stack_push_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	assert_argc_psst "stack_push_psst" 2 $#
-	assert_hasarg_psst "stack_push_psst" "stackName" "$2"
+	assert_argc_psst 'stack_push_psst' 2 $#
+	assert_hasarg_psst 'stack_push_psst' 'stackName' "$1"
 
-	#newValue=$1
-	#stackName=$2
+	#stackName=$1
+	#newValue=$2
 
-	# shellcheck disable=SC2034 # It is used but only indirect by eval
-	_countName_stack_psst="${2}__count_stack_psst"
+	_count_stack_psst=
+	_countName_stack_psst="${1}__count_stack_psst"
 	eval "_count_stack_psst=\${$_countName_stack_psst-0}"
 
-	_itemName_stack_psst="${2}__${_count_stack_psst}_item_stack_psst"
+	_itemName_stack_psst="${1}__${_count_stack_psst}_item_stack_psst"
 	_count_stack_psst=$(( _count_stack_psst + 1 ))
 
-	eval "$_itemName_stack_psst=\"\$1\""
+	eval "$_itemName_stack_psst=\"\$2\""
 	eval "$_countName_stack_psst=$_count_stack_psst"
 
 	unset _stackName_stack_psst
@@ -63,7 +63,7 @@ stack_push_psst()
 
 ##
 # FUNCTION
-#	stack_pop_psst <stackName> <resultVarName>
+#	stack_pop_psst <stackName> [<resultVarName>]
 #
 # SUMMARY
 #	Pop a value from a stack with a given name to a variable with a given name.
@@ -72,14 +72,14 @@ stack_push_psst()
 #
 # PARAMETERS
 #	stackName: Name of the stack (no spaces, only letters and underscore).
-#	resultVarName: Name of variable to receive popped value.
+#	[resultVarName]: Optional name of variable to receive popped value.
 #
 # RETURNS
 #	0: Success.
 #	2: No stack with that name has been found.
 #
 # SAMPLE
-#	if stack_pop_psst "someStackName" myResultVar
+#	if stack_pop_psst 'someStackName' myResultVar
 #	then
 #		# Do something with $myResultVar
 #	fi
@@ -90,14 +90,15 @@ stack_pop_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	assert_argc_psst "stack_pop_psst" 2 $#
-	assert_hasarg_psst "stack_pop_psst" "stackName" "$1"
-	assert_hasarg_psst "stack_pop_psst" "resultVarName" "$2"
+	assert_minargc_psst 'stack_pop_psst' 1 $#
+	assert_maxargc_psst 'stack_pop_psst' 2 $#
+	assert_hasarg_psst 'stack_pop_psst' 'stackName' "$1"
+	[ $# -eq 1 ] || assert_hasarg_psst 'stack_pop_psst' 'resultVarName' "$2"
 
 	# stackName=$1
 	# resultVarName=$2
 
-	# shellcheck disable=SC2034 # It is used but only indirect by eval
+	_count_stack_psst=
 	_countName_stack_psst="${1}__count_stack_psst"
 	eval "_count_stack_psst=\${$_countName_stack_psst-}"
 
@@ -112,7 +113,7 @@ stack_pop_psst()
 	_count_stack_psst=$(( _count_stack_psst - 1 ))
 	_itemName_stack_psst="${1}__${_count_stack_psst}_item_stack_psst"
 
-	eval "$2=\"\$$_itemName_stack_psst\""
+	[ $# -eq 1 ] || eval "$2=\"\${$_itemName_stack_psst}\""
 	unset "$_itemName_stack_psst"
 
 	if [ $_count_stack_psst -eq 0 ]
@@ -144,7 +145,7 @@ stack_pop_psst()
 #	2: Stack does not exist.
 #
 # SAMPLE
-#	if stack_exists_psst "someStackName"
+#	if stack_exists_psst 'someStackName'
 #	then
 #		# Do something with the stack
 #	fi
@@ -155,11 +156,12 @@ stack_exists_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
+	#stackName=$1
+
+	_count_stack_psst=
 	_countName_stack_psst="${1}__count_stack_psst"
 	eval "_count_stack_psst=\${$_countName_stack_psst-}"
 	unset _countName_stack_psst
-
-	#stackName=$1
 
 	if [ -n "${_count_stack_psst-}" ]
 	then
@@ -169,4 +171,38 @@ stack_exists_psst()
 
 	unset _count_stack_psst
 	return 2
+}
+
+
+##
+# FUNCTION
+#	stack_count_psst <stackName>
+#
+# SUMMARY
+#	Returns the number of items available on a stack.
+#
+# PARAMETERS
+#	stackName: Name of the stack (no spaces, only letters and underscore).
+#
+# OUTPUT
+#	stdout: Number of items on the stack or 0 if stack does not exist.
+#
+# SAMPLE
+#	count=$( stack_count_psst 'someStackName' )
+#
+stack_count_psst()
+{
+	# We cannot use a subshell for this function as we need to register the
+	# variables in the main shell. Thus we need to be careful to not conflict
+	# when defining local variables.
+
+	#stackName=$1
+
+	_count_stack_psst=
+	_countName_stack_psst="${1}__count_stack_psst"
+	eval "_count_stack_psst=\${$_countName_stack_psst-0}"
+	unset _countName_stack_psst
+
+	printf '%s' "$_count_stack_psst"
+	unset _count_stack_psst
 }

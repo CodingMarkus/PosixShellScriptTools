@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:ifs:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=assert.inc.sh
@@ -44,9 +44,9 @@ ifs_set_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	assert_argc_psst "ifs_set_psst" 1 $#
+	assert_argc_psst 'ifs_set_psst' 1 $#
 
-	stack_push_psst "$IFS" "ifsStack_psst" || return 2
+	stack_push_psst 'ifsStack_psst' "$IFS" || return 2
 	IFS=$1
 
 	unset newIFSValue_psst
@@ -71,10 +71,10 @@ ifs_restore_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
-	assert_argc_psst "ifs_restore_psst" 0 $#
+	assert_argc_psst 'ifs_restore_psst' 0 $#
 	unset _func_psst
 
-	if ! stack_pop_psst "ifsStack_psst" IFS
+	if ! stack_pop_psst 'ifsStack_psst' IFS
 	then
 		unset IFS
 	fi
