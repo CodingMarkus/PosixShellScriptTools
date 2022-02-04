@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:basic:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=basic/assert.inc.sh

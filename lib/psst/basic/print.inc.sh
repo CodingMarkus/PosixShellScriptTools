@@ -7,8 +7,11 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:print:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
+
+# shellcheck source=assert.inc.sh
+. "$INCLUDE_PSST/basic/assert.inc.sh"
 
 # shellcheck source=global.inc.sh
 . "$INCLUDE_PSST/basic/global.inc.sh"
@@ -41,7 +44,7 @@ print_psst()
 	IFS=
 	string="$*"
 
-	lines=$( printf "%s\n" "$string" \
+	lines=$( printf '%s\n' "$string" \
 		| fold -w "$TERM_WIDTH_PSST" -s \
 		| sed "s/ $//"
 	)
@@ -71,9 +74,9 @@ print_psst()
 #
 print_i_psst()
 (
-	func="print_i_psst"
+	func='print_i_psst'
 	assert_minargc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "indent" "$1"
+	assert_hasarg_psst "$func" 'indent' "$1"
 
 	indent="$1"
 	shift
@@ -82,7 +85,7 @@ print_i_psst()
 	string="$*"
 
 	cols=$(( TERM_WIDTH_PSST - indent ))
-	lines=$( printf "%s\n" "$string" \
+	lines=$( printf '%s\n' "$string" \
 		| fold -w "$cols" -s \
 		| sed "s/ $//"
 	)
@@ -91,6 +94,6 @@ print_i_psst()
 	for line in $lines
 	do
 		line=${line% }
-		printf "%*s%s\n" "$indent" '' "$line"
+		printf '%*s%s\n' "$indent" '' "$line"
 	done
 )

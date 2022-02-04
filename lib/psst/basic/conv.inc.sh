@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:conv:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=test.inc.sh
@@ -51,9 +51,9 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:conv:"
 #
 conv_chr_psst()
 (
-	func="chr_psst"
+	func='chr_psst'
 	assert_minargc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "charCode" "$1"
+	assert_hasarg_psst "$func" 'charCode' "$1"
 
 	for char in "$@"
 	do
@@ -95,9 +95,9 @@ conv_chr_psst()
 #
 conv_ord_psst()
 (
-	func="ord_psst"
+	func='ord_psst'
 	assert_argc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "chars" "$1"
+	assert_hasarg_psst "$func" 'chars' "$1"
 
 	chars=$1
 	[ ${#chars} -eq 1 ] && { LC_CTYPE=C printf "%d" "'$chars"; return 0; }

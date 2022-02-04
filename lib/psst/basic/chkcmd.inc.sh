@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:chkcmd:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=assert.inc.sh
@@ -37,9 +37,9 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:chkcmd:"
 #
 chkcmd_psst()
 (
-	func="chkcmd_psst"
+	func='chkcmd_psst'
 	assert_minargc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "cmd" "$1"
+	assert_hasarg_psst "$func" 'cmd' "$1"
 
 	while [ -n "${1-}" ]; do
 		if ! command -v "$1" >/dev/null; then

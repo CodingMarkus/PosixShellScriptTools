@@ -62,21 +62,24 @@ proc_start_psst()
 	# process handles on exit and therefor we require an at-exit handler in
 	# this shell.
 
-	assert_minargc_psst "proc_start_psst" 3 $#
-	assert_hasarg_psst "proc_start_psst" "resultVarName" "$1"
-	assert_hasarg_psst "proc_start_psst" "mode" "$2"
-	assert_hasarg_psst "proc_start_psst" "cmd" "$3"
+	assert_minargc_psst 'proc_start_psst' 3 $#
+	assert_hasarg_psst 'proc_start_psst' 'resultVarName' "$1"
+	assert_hasarg_psst 'proc_start_psst' 'mode' "$2"
+	assert_hasarg_psst 'proc_start_psst' 'cmd' "$3"
 
 	# resultVarName=$1
 	# mode=$4
 	# cmd=$3
 
 	# shellcheck  disable=SC2016
-	[ ${#2} -eq 3 ] || assert_fail_psst '`mode` must be 3 characters long'
+	[ ${#2} -eq 3 ] || assert_func_fail_psst 'proc_start_psst' \
+		'`mode` must be 3 characters long'
+
 	case $2 in
 		*[!.ox]*)
 			# shellcheck  disable=SC2016
-			assert_fail_psst '`mode` may only contain ".", "o", and "x"'
+			assert_func_fail_psst 'proc_start_psst' \
+				'"mode" may only contain ".", "o", and "x"'
 	esac
 
 	chkcmd_psst "$3" || return 1
@@ -175,9 +178,9 @@ proc_start_psst()
 #
 proc_get_pid_psst()
 (
-	func="proc_get_pid_psst"
+	func='proc_get_pid_psst'
 	assert_argc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "procHandle" "$1"
+	assert_hasarg_psst "$func" 'procHandle' "$1"
 
 	procHandle=$1
 
@@ -208,9 +211,9 @@ proc_get_pid_psst()
 #
 proc_is_alive_psst()
 (
-	func="proc_get_pid_psst"
+	func='proc_get_pid_psst'
 	assert_argc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "procHandle" "$1"
+	assert_hasarg_psst "$func" 'procHandle' "$1"
 
 	procHandle=$1
 
@@ -252,9 +255,9 @@ proc_stop_psst()
 
 	# procHandle=$1
 
-	func="proc_get_pid_psst"
+	func='proc_get_pid_psst'
 	assert_argc_psst "$func" 1 $#
-	assert_hasarg_psst "$func" "procHandle" "$1"
+	assert_hasarg_psst "$func" 'procHandle' "$1"
 
 	_pidFile_proc_psst="$1/pid"
 	[ -f "$_pidFile_proc_psst" ] \

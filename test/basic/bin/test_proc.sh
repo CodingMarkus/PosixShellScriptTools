@@ -197,7 +197,7 @@ set -e
 
 
 # =============================================================================
-# proc_is_alive_psst
+# proc_is_alive
 
 # Must accept exactly one argument
 set +e
@@ -247,3 +247,19 @@ set -e
 		[ $? -eq 1 ] || test_fail_psst $LINENO
 	fi
 )
+
+
+
+# =============================================================================
+# Test redirection
+
+# Inherited stdout can be read
+# (
+# 	procHandle=
+# 	proc_start_psst procHandle ... echo test \
+# 		|| test_fail_psst $LINENO
+
+
+
+# 	proc_stop_psst "$procHandle" || test_fail_psst $LINENO
+# )

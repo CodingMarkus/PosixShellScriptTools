@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:list:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=assert.inc.sh
@@ -46,7 +46,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:list:"
 #
 list_append_psst()
 (
-	func="list_append_psst"
+	func='list_append_psst'
 	assert_minargc_psst "$func" 2 $#
 
 	list=$1
@@ -55,19 +55,19 @@ list_append_psst()
 
 	[ ${#del} -eq 1 ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must be single character"
+			'List delimiter must be single character'
 
 	! [ "$del" = "$NL_CHAR_PSST" ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must not be newline"
+			'List delimiter must not be newline'
 
 	case $list in
 		'' | *"$del") ;;
 		*) assert_func_fail_psst "$func" \
-			"Argument \"list\" is not a valid list"
+			'Argument "list" is not a valid list'
 	esac
 
-	printf "%s%s%s" "$list" "$newValue" "$del"
+	printf '%s%s%s' "$list" "$newValue" "$del"
 )
 
 
@@ -100,7 +100,7 @@ list_append_psst()
 #
 list_prepend_psst()
 (
-	func="list_prepend_psst"
+	func='list_prepend_psst'
 	assert_minargc_psst "$func" 2 $#
 
 	list=$1
@@ -109,19 +109,19 @@ list_prepend_psst()
 
 	[ ${#del} -eq 1 ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must be single character"
+			'List delimiter must be single character'
 
 	! [ "$del" = "$NL_CHAR_PSST" ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must not be newline"
+			'List delimiter must not be newline'
 
 	case $list in
 		'' | *"$del") ;;
 		*) assert_func_fail_psst "$func" \
-			"Argument \"list\" is not a valid list"
+			'Argument "list" is not a valid list'
 	esac
 
-	printf "%s%s%s" "$newValue" "$del" "$list"
+	printf '%s%s%s' "$newValue" "$del" "$list"
 )
 
 
@@ -156,26 +156,26 @@ list_append_list_psst()
 
 	[ ${#del} -eq 1 ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must be single character"
+			'List delimiter must be single character'
 
 	! [ "$del" = "$NL_CHAR_PSST" ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must not be newline"
+			'List delimiter must not be newline'
 
 	case $list1 in
 		'' | *"$del") ;;
 		*) assert_func_fail_psst "$func" \
-			"Argument \"list1\" is not a valid list"
+			'Argument "list1" is not a valid list'
 	esac
 
 	case $list2 in
 		'' | *"$del") ;;
 		*) assert_func_fail_psst "$func" \
-			"Argument \"list2\" is not a valid list"
+			'Argument "list2" is not a valid list'
 	esac
 
 
-	printf "%s%s" "$list1" "$list2"
+	printf '%s%s' "$list1" "$list2"
 )
 
 
@@ -202,7 +202,7 @@ list_append_list_psst()
 
 list_prepend_list_psst()
 (
-	func="list_prepend_list_psst"
+	func='list_prepend_list_psst'
 	assert_minargc_psst "$func" 2 $#
 
 	list1=$1
@@ -211,24 +211,24 @@ list_prepend_list_psst()
 
 	[ ${#del} -eq 1 ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must be single character"
+			'List delimiter must be single character'
 
 	! [ "$del" = "$NL_CHAR_PSST" ] \
 		|| assert_func_fail_psst "$func" \
-			"List delimiter must not be newline"
+			'List delimiter must not be newline'
 
 	case $list1 in
 		'' | *"$del") ;;
 		*) assert_func_fail_psst "$func" \
-			"Argument \"list1\" is not a valid list"
+			'Argument "list1" is not a valid list'
 	esac
 
 	case $list2 in
 		'' | *"$del") ;;
 		*) assert_func_fail_psst "$func" \
-			"Argument \"list2\" is not a valid list"
+			'Argument "list2" is not a valid list'
 	esac
 
 
-	printf "%s%s" "$list2" "$list1"
+	printf '%s%s' "$list2" "$list1"
 )

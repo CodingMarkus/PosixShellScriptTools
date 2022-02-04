@@ -7,7 +7,7 @@ esac
 INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:esc:"
 
 # Ensure INCLUDE_PSST is set
-[ -n "${INCLUDE_PSST-}" ] || { echo "INCLUDE_PSST not set!" >&2 ; exit 1 ; }
+[ -n "${INCLUDE_PSST-}" ] || { echo 'INCLUDE_PSST not set!' >&2 ; exit 1 ; }
 
 
 # shellcheck source=assert.inc.sh
@@ -36,7 +36,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:esc:"
 #
 esc_for_sq_psst()
 (
-	func="esc_for_sq_psst"
+	func='esc_for_sq_psst'
 	assert_argc_psst "$func" 1 $#
 
 	value=$1
