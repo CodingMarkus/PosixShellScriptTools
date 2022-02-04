@@ -30,7 +30,7 @@ assert_fail_psst()
 	# conflict when defining local variables.
 
 	# msg=$1
-	printf "Assertion fail: %s!\n" "$1" >&2
+	printf "Assertion fail: %s\n" "$1" >&2
 	exit 127
 }
 

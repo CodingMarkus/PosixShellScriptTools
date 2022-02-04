@@ -25,8 +25,11 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:stack:"
 #	e.g. must not contain spaces.
 #
 # PARAMETERS
-#	stackName: Name of the stack (no spaces, only letters and underscore).
+#	stackName: Name of the stack (only letters, digits, and underscore).
 #	newValue: Value to push on stack.
+#
+# NOTE
+#	`stackName` must not start with a digit!
 #
 # SAMPLE
 #	stack_push_psst 'someStackName' "$value"
@@ -42,6 +45,13 @@ stack_push_psst()
 
 	#stackName=$1
 	#newValue=$2
+
+	case $1 in
+		[0-9]*) assert_func_fail_psst 'stack_push_psst' \
+			'stackName must not start witha digit' ;;
+		*[!a-zA-Z0-9_]*) assert_func_fail_psst 'stack_push_psst' \
+			'stackName must only contain letters, digits, and underscore'
+	esac
 
 	_count_stack_psst=
 	_countName_stack_psst="${1}__count_stack_psst"
@@ -97,6 +107,13 @@ stack_pop_psst()
 
 	# stackName=$1
 	# resultVarName=$2
+
+	case $1 in
+		[0-9]*) assert_func_fail_psst 'stack_push_psst' \
+			'stackName must not start witha digit' ;;
+		*[!a-zA-Z0-9_]*) assert_func_fail_psst 'stack_pop_psst' \
+			'stackName must only contain letters, digits, and underscore'
+	esac
 
 	_count_stack_psst=
 	_countName_stack_psst="${1}__count_stack_psst"
@@ -156,7 +173,17 @@ stack_exists_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
+	assert_argc_psst 'stack_exists_psst' 1 $#
+	assert_hasarg_psst 'stack_exists_psst' 'stackName' "$1"
+
 	#stackName=$1
+
+	case $1 in
+		[0-9]*) assert_func_fail_psst 'stack_exists_psst' \
+			'stackName must not start witha digit' ;;
+		*[!a-zA-Z0-9_]*) assert_func_fail_psst 'stack_exists_psst' \
+			'stackName must only contain letters, digits, and underscore'
+	esac
 
 	_count_stack_psst=
 	_countName_stack_psst="${1}__count_stack_psst"
@@ -196,7 +223,17 @@ stack_count_psst()
 	# variables in the main shell. Thus we need to be careful to not conflict
 	# when defining local variables.
 
+	assert_argc_psst 'stack_count_psst' 1 $#
+	assert_hasarg_psst 'stack_count_psst' 'stackName' "$1"
+
 	#stackName=$1
+
+	case $1 in
+		[0-9]*) assert_func_fail_psst 'stack_count_psst' \
+			'stackName must not start witha digit' ;;
+		*[!a-zA-Z0-9_]*) assert_func_fail_psst 'stack_count_psst' \
+			'stackName must only contain letters, digits, and underscore'
+	esac
 
 	_count_stack_psst=
 	_countName_stack_psst="${1}__count_stack_psst"

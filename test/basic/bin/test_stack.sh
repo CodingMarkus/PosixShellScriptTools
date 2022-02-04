@@ -25,9 +25,16 @@ set +e
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
-# Stack name must not be empty, value can be empty
+# Stack name must not be empty or start with a digit or have spaces.
+# Value can be empty.
 set +e
 ( stack_push_psst '' 1 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_push_psst '1stack' '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_puth_psst 'stack name' '' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
 ( stack_push_psst 'stack' '' 2>/dev/null ) || test_fail_psst $LINENO
@@ -43,9 +50,16 @@ set +e
 [ $? = 127 ] || test_fail_psst $LINENO
 set -e
 
-# Neither one may be empty
+# Stack name must not be empty or start with a digit or have spaces.
+# outVar name must not be empty.
 set +e
 ( stack_pop_psst '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_pop_psst '1stack' '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_pop_psst 'stack name' 2>/dev/null )
 [ $? = 127 ] || test_fail_psst $LINENO
 
 ( stack_pop_psst 'stack' '' 2>/dev/null )
@@ -53,21 +67,67 @@ set +e
 set -e
 
 
+# Exists must accept exactly one argument
+set +e
+( stack_exists_psst 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_exists_psst 'stack' 1 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+# Stack name must not be empty or start with a digit or have spaces
+set +e
+( stack_exists_psst '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_exists_psst '1stack' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_exists_psst 'stack name' '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+
+
+# Count must accept exactly one argument
+set +e
+( stack_count_psst 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_count_psst 'stack' 1 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+# Stack name must not be empty or start with a digit or have spaces
+set +e
+( stack_count_psst '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_count_psst '1stack' '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+
+( stack_count_psst 'stack name' '' 2>/dev/null )
+[ $? = 127 ] || test_fail_psst $LINENO
+set -e
+
+
+
 # Test push creates and pops destroys
 (
 	! stack_exists_psst 'stack' || test_fail_psst $LINENO
-		# Verify that the gloabl namespace has not been polluted
-		! ( set | grep '^_.*_psst' ) || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep '^_.*_psst' ) || test_fail_psst $LINENO
 
 	stack_push_psst 'stack' 1 || test_fail_psst $LINENO
 	stack_exists_psst 'stack' || test_fail_psst $LINENO
-		# Verify that the gloabl namespace has not been polluted
-		! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep "^_.*_psst" ) || test_fail_psst $LINENO
 
 	stack_pop_psst 'stack' || test_fail_psst $LINENO
 	! stack_exists_psst 'stack' ||  test_fail_psst $LINENO
-		# Verify that the gloabl namespace has not been polluted
-		! ( set | grep '^_.*_psst' ) || test_fail_psst $LINENO
+	# Verify that the gloabl namespace has not been polluted
+	! ( set | grep '^_.*_psst' ) || test_fail_psst $LINENO
 )
 
 
@@ -80,7 +140,7 @@ set -e
 	stack_exists_psst 'stack' || test_fail_psst $LINENO
 
 	stack_pop_psst 'stack' || test_fail_psst $LINENO
-	stack_exists_psst 'stack'  test_fail_psst $LINENO
+	stack_exists_psst 'stack' ||  test_fail_psst $LINENO
 
 	stack_pop_psst 'stack' || test_fail_psst $LINENO
 	! stack_exists_psst 'stack' || test_fail_psst $LINENO
@@ -136,11 +196,12 @@ test4Res=
 ! stack_pop_psst 'stack' test4Res ||  test_fail_psst $LINENO
 [ -z "$test4Res" ] || test_fail_psst $LINENO
 
-
 # Verify that the gloabl namespace has not been polluted
 ! ( set | grep '^_.*_psst' ) || test_fail_psst $LINENO
 
-# Test count
+
+
+# Test stack count
 (
 	[ "$( stack_count_psst 'stack' )" -eq 0 ] || test_fail_psst $LINENO
 	stack_push_psst 'stack' 'a' || test_fail_psst $LINENO
