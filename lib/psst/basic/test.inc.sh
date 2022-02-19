@@ -59,6 +59,40 @@ test_is_int_psst()
 {
 	# value=$1
 
+	assert_argc_psst 'test_is_int_psst' 1 $#
+
+	# We could use a subshell here but that would only make this test rather
+	# slow for no reason, so we go for speed.
+	case $1 in
+ 	  	'' | '-' | *[!0-9-]* | *[0-9]-*) return 2
+	esac
+}
+
+
+##
+# FUNCTION
+#	test_is_uint_psst <value>
+#
+# SUMMARY
+#	Tests if a value is a natural number (unsigned integer)
+#
+# PARAMETERS
+#	value: The value to test for being a natural.
+#
+# RETURNS
+#	0: Yes, it is a natural..
+#	2: No, it isn't.
+#
+# SAMPLE
+#	test_is_uint_psst "abc" || echo "Not an int"
+#	test_is_uint_psst "123" && echo "It is an int"
+#
+test_is_uint_psst()
+{
+	# value=$1
+
+	assert_argc_psst 'test_is_uint_psst' 1 $#
+
 	# We could use a subshell here but that would only make this test rather
 	# slow for no reason, so we go for speed.
 	case $1 in
