@@ -15,6 +15,7 @@ fi
 . "$INCLUDE_PSST/basic.inc.sh"
 
 # =============================================================================
+# stack_push_psst
 
 # Push must accept exactly two arguments
 set +e
@@ -40,6 +41,9 @@ set +e
 ( stack_push_psst 'stack' '' 2>/dev/null ) || test_fail_psst $LINENO
 set -e
 
+
+# =============================================================================
+# stack_pop_psst
 
 # Pop requires at least one argument and not more than two
 set +e
@@ -67,6 +71,9 @@ set +e
 set -e
 
 
+# =============================================================================
+# stack_exists_psst
+
 # Exists must accept exactly one argument
 set +e
 ( stack_exists_psst 2>/dev/null )
@@ -89,6 +96,8 @@ set +e
 set -e
 
 
+# =============================================================================
+# stack_count_psst
 
 # Count must accept exactly one argument
 set +e
@@ -112,6 +121,8 @@ set +e
 set -e
 
 
+# =============================================================================
+# Combine operations
 
 # Test push creates and pops destroys
 (
