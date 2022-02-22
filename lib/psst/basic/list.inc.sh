@@ -20,6 +20,57 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:list:"
 . "$INCLUDE_PSST/basic/test.inc.sh"
 
 
+##
+# SUBMODULE
+#	List
+#
+# SUMMARY
+#	Lists are strings of values and delimiters. E.g. a list with the values
+#	`a`` to `f`` and the delimiter `|` would look as follows:
+#
+#		a|b|c|d|e|f|
+#
+#	It's important to note that a list is always terminated by a delimiter.
+#	There are two reasons for that:
+#u
+#		* That way it is possible to distinguish an empty list "" from a list
+#		  containing a single empty value "|".
+#
+#		* When piping lists through shell commands, trailing line breaks would
+#		  otherwise be lost on capture if they aren't followed by one more
+#		  non-line break character.
+#
+#	As of the second reason, it's obvious that a line break must not be used
+#	as a delimiter for lists, just like NUL cannot be used for that purpose as
+#	NUL terminates strings in the shell; any other character can be used.
+#	Unless explicitely specified, list functions assume that the delimiter
+#	is `$RS_CHAR_PSST``.
+#
+#	There are no functions to append or prepend values to lists, as that can
+#	easily be done as follows:
+#
+#		newList1="$newValue$sep$oldList"
+#		newList2="$oldList$newValue$sep"
+#
+#	With $sep representing the separator character.
+#
+#	These is also no function to iterate over a list as this can simply be done
+#	using the following piece of code:
+#
+#		ifs_set_psst "$sep"
+#		for listValue in $list
+#		do
+#			# Do something with $listValue
+#		done
+#		ifs_restore_psst
+#
+# NOTE
+#	Most list functions have an O(n) complexity, so lists are not the best way
+#	to store data in all cases and while they can be used as a replacement for
+#	missing arrays in standard POSIX shells, they are a rather poor replacement
+#	performance-wise.
+
+
 
 ##
 # SUBPROCESS
