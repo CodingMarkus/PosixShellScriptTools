@@ -49,15 +49,22 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:list:"
 #	There are no functions to append or prepend values to lists, as that can
 #	easily be done as follows:
 #
-#		newList1="$newValue$sep$oldList"
-#		newList2="$oldList$newValue$sep"
+#		newList1="$newValue$del$oldList"
+#		newList2="$oldList$newValue$del"
 #
-#	With $sep representing the separator character.
+#	With `$del` representing the delimiter character. Of course, this only
+#	works correctly if the new value does not contain `$del`, otherwise it
+#	would be interpreted as multiple values being added to the list at once,
+#	which sometimes may even be desirable. It is even possible to concatenate
+#	two lists to each other as long as they both use the same delimiter:
 #
-#	These is also no function to iterate over a list as this can simply be done
+#		newList1="$list1$list2"
+#		newList2="$list2$list1"
+#
+#	There is also no function to iterate over a list as this can simply be done
 #	using the following piece of code:
 #
-#		ifs_set_psst "$sep"
+#		ifs_set_psst "$del"
 #		for listValue in $list
 #		do
 #			# Do something with $listValue
