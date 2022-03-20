@@ -16,7 +16,7 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:esc:"
 
 ##
 # SUBPROCESS
-#	esc_for_sq_psst <value>
+#	esc_squotes_psst <value>
 #
 # SUMMARY
 #	Escapes `value` so it can be safely used within single quotes. This
@@ -32,14 +32,77 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:esc:"
 #	stdout: The escaped value.
 #
 # SAMPLE
-#	safeValue=$( esc_for_sq_psst "$value" )
+#	safeValue=$( esc_squotes_psst "$value" )
+#	execLater="someCommand '$safeValue'"
+#	exec "$execLater"
 #
-esc_for_sq_psst()
+esc_squotes_psst()
 (
-	func='esc_for_sq_psst'
+	func='esc_squotes_psst'
 	assert_argc_psst "$func" 1 $#
 
-	value=$1
+	printf '%s' "$1" | sed "s/'/'\\\''/g"
+)
 
-	printf "%s" "$value" |  sed "s/'/'\\\''/g"
+
+
+##
+# SUBPROCESS
+#	esc_cstring_psst <value>
+#
+# SUMMARY
+#	Escapes `value` so it can be safely used within a C-string. A C-string
+#	allows all values except for double quote, backslash, and line break.
+#
+# PARAMETERS
+#	value: Value to be escaped for usage within a C-string.
+#
+# OUTPUT
+#	stdout: The escaped value.
+#
+# SAMPLE
+#	safeValue=$( esc_cstring_psst "$value" )
+#
+#
+esc_cstring_psst()
+(
+	func='esc_cstring_psst'
+	assert_argc_psst "$func" 1 $#
+
+	# shellcheck disable=SC2016
+	awkProg='
+		NR > 1 { printf "\\n" }
+		{ printf "%s", $0 }
+	'
+
+	printf '%s' "$1" | sed 's/\(["\\]\)/\\\1/g' |  awk "$awkProg"
+)
+
+
+
+##
+# SUBPROCESS
+#	esc_printf_psst <value>
+#
+# SUMMARY
+#	Escapes `value` so it can be safely used within a printf string. A printf
+#	allows all values except for double quote, backslash, and line break.
+#	Additionally % has a special meaing and must be escaped as %%.
+#
+# PARAMETERS
+#	value: Value to be escaped for usage within a printf string
+#
+# OUTPUT
+#	stdout: The escaped value.
+#
+# SAMPLE
+#	safeValue=$( esc_cstring_psst "$value" )
+#
+#
+esc_printf_psst()
+(
+	func='esc_printf_psst'
+	assert_argc_psst "$func" 1 $#
+
+	esc_cstring_psst "$1" | sed 's/%/%%/g'
 )

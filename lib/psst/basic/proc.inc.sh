@@ -95,9 +95,11 @@ proc_start_psst()
 
 	for _arg_psst in "$@"
 	do
-		_evalCMD_proc_psst="$_evalCMD_proc_psst '$( esc_for_sq_psst "$_arg_psst" )'"
+		_safeArg_proc_psst="$( esc_squotes_psst "$_arg_psst" )"
+		_evalCMD_proc_psst="$_evalCMD_proc_psst '$_safeArg_proc_psst'"
 	done
 	unset _arg_psst
+	unset _safeArg_proc_psst
 
 	printf "%s" "$_evalCMD_proc_psst"  >"$_tmpdir_proc_psst/eval"
 
