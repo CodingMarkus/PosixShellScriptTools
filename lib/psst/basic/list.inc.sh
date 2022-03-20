@@ -16,6 +16,9 @@ INCLUDE_SEEN_PSST="${INCLUDE_SEEN_PSST-}:list:"
 # shellcheck source=const.inc.sh
 . "$INCLUDE_PSST/basic/const.inc.sh"
 
+# shellcheck source=esc.inc.sh
+. "$INCLUDE_PSST/basic/esc.inc.sh"
+
 # shellcheck source=test.inc.sh
 . "$INCLUDE_PSST/basic/test.inc.sh"
 
@@ -179,9 +182,12 @@ list_count_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -236,9 +242,12 @@ list_first_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -294,9 +303,12 @@ list_last_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	[ ${#list} -eq 0 ] && return 2
@@ -358,9 +370,12 @@ list_get_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -422,9 +437,12 @@ list_remove_first_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -482,9 +500,12 @@ list_remove_last_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -547,9 +568,12 @@ list_remove_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -617,9 +641,12 @@ list_remove_value_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -627,6 +654,8 @@ list_remove_value_psst()
 		*) assert_func_fail_psst "$func" \
 			'Argument "list" is not a valid list'
 	esac
+
+	value=$( esc_cstring_psst "$value" )
 
 	# shellcheck disable=SC2016
 	awkProg='
@@ -683,9 +712,12 @@ list_remove_all_values_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -693,6 +725,8 @@ list_remove_all_values_psst()
 		*) assert_func_fail_psst "$func" \
 			'Argument "list" is not a valid list'
 	esac
+
+	value=$( esc_cstring_psst "$value" )
 
 	# shellcheck disable=SC2016
 	awkProg='
@@ -746,9 +780,12 @@ list_select_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -762,6 +799,8 @@ list_select_psst()
 		*) assert_func_fail_psst "$func" \
 			'Argument "filter" is not a valid regex'
 	esac
+
+	filter=$( esc_cstring_psst "$filter" )
 
 	# shellcheck disable=SC2016
 	awkProg='
@@ -812,9 +851,12 @@ list_filter_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -828,6 +870,8 @@ list_filter_psst()
 		*) assert_func_fail_psst "$func" \
 			'Argument "filter" is not a valid regex'
 	esac
+
+	filter=$( esc_cstring_psst "$filter" )
 
 	# shellcheck disable=SC2016
 	awkProg='
@@ -877,9 +921,12 @@ list_find_psst()
 			|| assert_func_fail_psst "$func" \
 				'List delimiter must be single character'
 
-		! [ "$del" = "$NL_CHAR_PSST" ] \
-			|| assert_func_fail_psst "$func" \
+		case $del in
+			\\) del=\\\\ ;;
+			\") del='\"' ;;
+			"$NL_CHAR_PSST") assert_func_fail_psst "$func" \
 				'List delimiter must not be newline'
+		esac
 	fi
 
 	case $list in
@@ -893,6 +940,8 @@ list_find_psst()
 		*) assert_func_fail_psst "$func" \
 			'Argument "filter" is not a valid regex'
 	esac
+
+	filter=$( esc_cstring_psst "$filter" )
 
 	# shellcheck disable=SC2016
 	awkProg='
